@@ -101,13 +101,13 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.rst'), encoding="u
 CHANGELOG = open(os.path.join(os.path.dirname(__file__), 'CHANGELOG.rst'), encoding="utf8").read()
 
 setup(
-    name='outcome_surveys',
+    name='outcome-surveys',
     version=VERSION,
-    description="""Outcome Surveys""",
+    description="""An edx-platform plugin to send and track course events.""",
     long_description=README + '\n\n' + CHANGELOG,
     author='edX',
     author_email='oscm@edx.org',
-    url='https://github.com/edx/outcome_surveys',
+    url='https://github.com/edx/outcome-surveys',
     packages=[
         'outcome_surveys',
     ],
