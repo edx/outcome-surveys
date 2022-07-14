@@ -11,7 +11,7 @@ from django.utils import timezone
 
 from outcome_surveys.constants import SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE
 from outcome_surveys.models import LearnerCourseEvent
-from outcome_surveys.signals import handle_segment_event_fired_for_learner_passed_course_first_time
+from outcome_surveys.signals import schedule_course_passed_first_time_follow_up_segment_event
 
 
 @pytest.mark.django_db
@@ -34,9 +34,14 @@ class TestSignals(TestCase):
 
     def test_handle_segment_event_fired_for_learner_passed_course_first_time(self):
         """
-        Verify that `handle_segment_event_fired_for_learner_passed_course_first_time` signal handler work as expected.
+        Verify that `schedule_course_passed_first_time_follow_up_segment_event` signal handler work as expected.
         """
-        handle_segment_event_fired_for_learner_passed_course_first_time(None, self.user_id, self.course_id, self.event_properties)
+        schedule_course_passed_first_time_follow_up_segment_event(
+            None,
+            self.user_id,
+            self.course_id,
+            self.event_properties
+        )
 
         assert LearnerCourseEvent.objects.count() == 1
 

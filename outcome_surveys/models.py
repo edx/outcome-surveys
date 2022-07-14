@@ -32,6 +32,10 @@ class LearnerCourseEvent(TimeStampedModel):
     )
 
     class Meta:
+        """
+        Meta class for LearnerCourseEvent.
+        """
+
         app_label = "outcome_surveys"
         indexes = [
             models.Index(fields=['follow_up_date']),

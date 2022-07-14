@@ -11,10 +11,19 @@ from outcome_surveys.models import LearnerCourseEvent
 
 log = getLogger(__name__)
 
-def handle_segment_event_fired_for_learner_passed_course_first_time(sender, user_id, course_id, event_properties, **kwargs):  # pylint: disable=unused-argument
+
+def schedule_course_passed_first_time_follow_up_segment_event(
+    sender,
+    user_id,
+    course_id,
+    event_properties,
+    **kwargs  # pylint: disable=unused-argument
+):
     """
-    Listen for a `SCHEDULE_FOLLOW_UP_SEGMENT_EVENT_FOR_COURSE_PASSED_FIRST_TIME` signal indicating
-    that the segment event has fired for a learner who has passed a course for the first time.
+    Listen for a `SCHEDULE_FOLLOW_UP_SEGMENT_EVENT_FOR_COURSE_PASSED_FIRST_TIME` signal.
+
+    The incoming signal indicates that the segment event has fired
+    for a learner who has passed a course for the first time.
     """
     log.info("[OUTCOME SURVEYS] Follow up signal recieved.")
 
@@ -29,9 +38,8 @@ def handle_segment_event_fired_for_learner_passed_course_first_time(sender, user
     )
 
     log.info(
-        "[OUTCOME SURVEYS] Follow up event scheduled. User: [{}], Course: [{}], Enrollment: [{}]".format(
-            user_id,
-            course_id,
-            event_properties['LMS_ENROLLMENT_ID']
-        )
+        "[OUTCOME SURVEYS] Follow up event scheduled. User: [%s], Course: [%s], Enrollment: [%s]",
+        user_id,
+        course_id,
+        event_properties['LMS_ENROLLMENT_ID']
     )

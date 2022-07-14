@@ -6,8 +6,8 @@ import logging
 
 try:
     from common.djangoapps.track.segment import track
-except:
-    track = lambda *args, **kwargs: None
+except ImportError:
+    track = None
 
 from django.core.management.base import BaseCommand
 from django.core.paginator import Paginator
@@ -67,16 +67,19 @@ class Command(BaseCommand):
 
             for follow_up_event in page:
                 if should_fire_event:
-                    track(follow_up_event.user_id, SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE, follow_up_event.data)
+                    track(
+                        follow_up_event.user_id,
+                        SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
+                        follow_up_event.data
+                    )
 
                 follow_up_event_ids.append(follow_up_event.id)
 
                 log.info(
-                    "{} Segment event fired for passed learner. Event: [{}], Data: [{}]".format(
-                        log_prefix,
-                        SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
-                        follow_up_event.data
-                    )
+                    "%s Segment event fired for passed learner. Event: [%s], Data: [%s]",
+                    log_prefix,
+                    SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
+                    follow_up_event.data
                 )
 
-        log.info(f"{log_prefix} Command completed. Segment event triggered for ids: [{follow_up_event_ids}]")
+        log.info("%s Command completed. Segment event triggered for ids: [%s]", log_prefix, follow_up_event_ids)

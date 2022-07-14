@@ -21,7 +21,7 @@ class OutcomeSurveysConfig(AppConfig):
                     {
                         PluginSignals.SIGNAL_PATH: 'lms.djangoapps.grades.signals.signals'
                                                    '.SCHEDULE_FOLLOW_UP_SEGMENT_EVENT_FOR_COURSE_PASSED_FIRST_TIME',
-                        PluginSignals.RECEIVER_FUNC_NAME: 'handle_segment_event_fired_for_learner_passed_course_first_time',
+                        PluginSignals.RECEIVER_FUNC_NAME: 'schedule_course_passed_first_time_follow_up_segment_event',
                     },
                 ],
             },

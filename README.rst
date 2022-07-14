@@ -1,16 +1,15 @@
-outcome_surveys
+Outcome Surveys
 =============================
 
 |pypi-badge| |ci-badge| |codecov-badge| |doc-badge| |pyversions-badge|
 |license-badge|
 
 
-Outcome Surveys
 
-Overview (please modify)
+Overview
 ------------------------
 
-outcome_surveys is a Django app plugin. It will be installed in ``edx-platform`` and integrated in ``lms``. outcome_surveys
+outcome-surveys is a Django app plugin. It will be installed in ``edx-platform`` and integrated in ``lms``. outcome_surveys
 plugin will be used to send follow up events for learners who have passed a course.
 
 
@@ -22,11 +21,11 @@ One Time Setup
 .. code-block::
 
   # Clone the repository
-  git clone git@github.com:edx/outcome_surveys.git
-  cd outcome_surveys
+  git clone git@github.com:edx/outcome-surveys.git
+  cd outcome-surveys
 
   # Set up a virtualenv using virtualenvwrapper with the same name as the repo and activate it
-  mkvirtualenv -p python3.8 outcome_surveys
+  mkvirtualenv -p python3.8 outcome-surveys
 
 
 Every time you develop something in this repo
@@ -34,10 +33,10 @@ Every time you develop something in this repo
 .. code-block::
 
   # Activate the virtualenv
-  workon outcome_surveys
+  workon outcome-surveys
 
   # Grab the latest code
-  git checkout main
+  git checkout master
   git pull
 
   # Install/update the dev requirements
@@ -112,26 +111,26 @@ For more information about these options, see the `Getting Help`_ page.
 .. _community Slack workspace: https://openedx.slack.com/
 .. _Getting Help: https://openedx.org/getting-help
 
-.. |pypi-badge| image:: https://img.shields.io/pypi/v/outcome_surveys.svg
-    :target: https://pypi.python.org/pypi/outcome_surveys/
+.. |pypi-badge| image:: https://img.shields.io/pypi/v/outcome-surveys.svg
+    :target: https://pypi.python.org/pypi/outcome-surveys/
     :alt: PyPI
 
-.. |ci-badge| image:: https://github.com/edx/outcome_surveys/workflows/Python%20CI/badge.svg?branch=main
-    :target: https://github.com/edx/outcome_surveys/actions
+.. |ci-badge| image:: https://github.com/edx/outcome-surveys/workflows/Python%20CI/badge.svg?branch=master
+    :target: https://github.com/edx/outcome-surveys/actions
     :alt: CI
 
-.. |codecov-badge| image:: https://codecov.io/github/edx/outcome_surveys/coverage.svg?branch=main
-    :target: https://codecov.io/github/edx/outcome_surveys?branch=main
+.. |codecov-badge| image:: https://codecov.io/github/edx/outcome-surveys/coverage.svg?branch=master
+    :target: https://codecov.io/github/edx/outcome-surveys?branch=master
     :alt: Codecov
 
-.. |doc-badge| image:: https://readthedocs.org/projects/outcome_surveys/badge/?version=latest
-    :target: https://outcome_surveys.readthedocs.io/en/latest/
+.. |doc-badge| image:: https://readthedocs.org/projects/outcome-surveys/badge/?version=latest
+    :target: https://outcome-surveys.readthedocs.io/en/latest/
     :alt: Documentation
 
-.. |pyversions-badge| image:: https://img.shields.io/pypi/pyversions/outcome_surveys.svg
-    :target: https://pypi.python.org/pypi/outcome_surveys/
+.. |pyversions-badge| image:: https://img.shields.io/pypi/pyversions/outcome-surveys.svg
+    :target: https://pypi.python.org/pypi/outcome-surveys/
     :alt: Supported Python versions
 
-.. |license-badge| image:: https://img.shields.io/github/license/edx/outcome_surveys.svg
-    :target: https://github.com/edx/outcome_surveys/blob/main/LICENSE.txt
+.. |license-badge| image:: https://img.shields.io/github/license/edx/outcome-surveys.svg
+    :target: https://github.com/edx/outcome-surveys/blob/master/LICENSE.txt
     :alt: License
