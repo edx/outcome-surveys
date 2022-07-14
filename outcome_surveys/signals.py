@@ -4,9 +4,13 @@ outcome_surveys signals.
 from datetime import timedelta
 from logging import getLogger
 
+from django.conf import settings
 from django.utils import timezone
 
-from outcome_surveys.constants import SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE
+from outcome_surveys.constants import (
+    OUTCOME_SURVEYS_FOLLOW_UP_DAYS_DEFAULT,
+    SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
+)
 from outcome_surveys.models import LearnerCourseEvent
 
 log = getLogger(__name__)
@@ -27,19 +31,21 @@ def schedule_course_passed_first_time_follow_up_segment_event(
     """
     log.info("[OUTCOME SURVEYS] Follow up signal recieved.")
 
+    days = getattr(settings, 'OUTCOME_SURVEYS_FOLLOW_UP_DAYS', OUTCOME_SURVEYS_FOLLOW_UP_DAYS_DEFAULT)
+    follow_up_date = timezone.now().date() + timedelta(days=days)
     # add event data into model
-    ninety_day_follow_up_date = timezone.now().date() + timedelta(days=90)
     LearnerCourseEvent.objects.create(
         user_id=user_id,
         course_id=course_id,
         data=event_properties,
-        follow_up_date=ninety_day_follow_up_date,
+        follow_up_date=follow_up_date,
         event_type=SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE
     )
 
     log.info(
-        "[OUTCOME SURVEYS] Follow up event scheduled. User: [%s], Course: [%s], Enrollment: [%s]",
+        "[OUTCOME SURVEYS] Follow up event scheduled. User: [%s], Course: [%s], Enrollment: [%s], Date: [%s]",
         user_id,
         course_id,
-        event_properties['LMS_ENROLLMENT_ID']
+        event_properties['LMS_ENROLLMENT_ID'],
+        follow_up_date
     )
