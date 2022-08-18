@@ -59,12 +59,14 @@ class Command(BaseCommand):
         follow_up_events = LearnerCourseEvent.objects.filter(
             follow_up_date=today,
             event_type=SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
+            already_sent=False,
         )
 
         paginator = Paginator(follow_up_events, 500)
         for page_number in paginator.page_range:
             page = paginator.page(page_number)
 
+            triggered_event_record_ids = []
             for follow_up_event in page:
                 if should_fire_event:
                     track(
@@ -72,6 +74,7 @@ class Command(BaseCommand):
                         SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
                         follow_up_event.data
                     )
+                    triggered_event_record_ids.append(follow_up_event.id)
 
                 follow_up_event_ids.append(follow_up_event.id)
 
@@ -81,5 +84,8 @@ class Command(BaseCommand):
                     SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
                     follow_up_event.data
                 )
+
+            if triggered_event_record_ids:
+                LearnerCourseEvent.objects.filter(id__in=triggered_event_record_ids).update(already_sent=True)
 
         log.info("%s Command completed. Segment event triggered for ids: [%s]", log_prefix, follow_up_event_ids)
