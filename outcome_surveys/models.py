@@ -30,6 +30,7 @@ class LearnerCourseEvent(TimeStampedModel):
         choices=EVENT_CHOICES,
         default=SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
     )
+    already_sent = models.BooleanField(default=False)
 
     class Meta:
         """

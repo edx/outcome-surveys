@@ -15,6 +15,11 @@ Unreleased
 ~~~~~~~~~~
 
 
+[1.1.1] - 2022-09-06
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Add `already_sent` boolean field in `LearnerCourseEvent` model to store the state for sent events.
+* Set `already_sent`` to `True` in `LearnerCourseEvent` model for each triggered event.
+
 [1.1.0] - 2022-07-14
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Make follow up days configurable

@@ -55,6 +55,18 @@ class TestSendFollowupSegmentEventsForPassedLearnersCommand(TestCase):
                 'event_type': SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
             },
             {
+                'user_id': 222,
+                'course_id': self.course_id,
+                'data': {
+                    'LMS_ENROLLMENT_ID': 2221,
+                    'COURSE_TITLE': 'An introduction to Python',
+                    'COURSE_ORG_NAME': 'PythonX',
+                },
+                'follow_up_date': self.today,
+                'event_type': SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
+                'already_sent': True,
+            },
+            {
                 'user_id': 300,
                 'course_id': self.course_id,
                 'data': {
@@ -76,7 +88,7 @@ class TestSendFollowupSegmentEventsForPassedLearnersCommand(TestCase):
         """
         event_call_data = []
         for item in self.test_data:
-            if item.get('follow_up_date') == self.today:
+            if item.get('follow_up_date') == self.today and item.get('already_sent', False) is False:
                 event_call_data.append([
                     item.get('user_id'),
                     SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
@@ -99,6 +111,19 @@ class TestSendFollowupSegmentEventsForPassedLearnersCommand(TestCase):
 
         * Event should be fired for records having follow_up_date set to today.
         """
+        already_sent_records = LearnerCourseEvent.objects.filter(already_sent=True)
+        assert already_sent_records.count() == 1
+        assert already_sent_records.first().user_id == 222
+        already_sent_records_ids = list(already_sent_records.values_list('id', flat=True))
+
         call_command(self.command)
         expected_segment_event_calls = [mock.call(*event_data) for event_data in self.construct_event_call_data()]
         segment_track_mock.assert_has_calls(expected_segment_event_calls)
+
+        # verify that correct records were upddated in table
+        already_sent_records = LearnerCourseEvent.objects.filter(already_sent=True)
+        assert already_sent_records.count() == 3
+        triggered_event_user_ids = already_sent_records.exclude(
+            id__in=already_sent_records_ids
+        ).values_list('user_id', flat=True)
+        assert list(triggered_event_user_ids) == [100, 200]
