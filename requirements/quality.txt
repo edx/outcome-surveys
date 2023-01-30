@@ -4,28 +4,32 @@
 #
 #    make upgrade
 #
-asgiref==3.5.2
+asgiref==3.6.0
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.11.7
+astroid==2.13.3
     # via
     #   pylint
     #   pylint-celery
-attrs==21.4.0
+attrs==22.2.0
     # via
     #   -r requirements/test.txt
     #   pytest
-bleach==5.0.1
+bleach==6.0.0
     # via readme-renderer
-certifi==2022.6.15
-    # via requests
+certifi==2022.12.7
+    # via
+    #   -r requirements/test.txt
+    #   requests
 cffi==1.15.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-charset-normalizer==2.1.0
-    # via requests
+charset-normalizer==3.0.1
+    # via
+    #   -r requirements/test.txt
+    #   requests
 click==8.1.3
     # via
     #   -r requirements/test.txt
@@ -39,15 +43,13 @@ code-annotations==1.3.0
     # via
     #   -r requirements/test.txt
     #   edx-lint
-commonmark==0.9.1
-    # via rich
-coverage[toml]==6.4.2
+coverage[toml]==7.1.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-dill==0.3.5.1
+dill==0.3.6
     # via pylint
-django==3.2.14
+django==3.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -59,91 +61,103 @@ django-crum==0.7.9
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-django-model-utils==4.2.0
+django-model-utils==4.3.1
     # via -r requirements/test.txt
-django-waffle==2.5.0
+django-waffle==3.0.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
 docutils==0.19
     # via readme-renderer
-edx-django-utils==5.0.0
+edx-django-utils==5.2.0
     # via -r requirements/test.txt
-edx-lint==5.2.4
+edx-lint==5.3.0
     # via -r requirements/quality.in
 edx-opaque-keys==2.3.0
     # via -r requirements/test.txt
-idna==3.3
-    # via requests
-importlib-metadata==4.12.0
-    # via
-    #   keyring
-    #   twine
-iniconfig==1.1.1
+exceptiongroup==1.1.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.10.1
+idna==3.4
+    # via
+    #   -r requirements/test.txt
+    #   requests
+importlib-metadata==6.0.0
+    # via
+    #   keyring
+    #   twine
+importlib-resources==5.10.2
+    # via keyring
+iniconfig==2.0.0
+    # via
+    #   -r requirements/test.txt
+    #   pytest
+isort==5.12.0
     # via
     #   -r requirements/quality.in
     #   pylint
+jaraco-classes==3.2.3
+    # via keyring
 jinja2==3.1.2
     # via
     #   -r requirements/test.txt
     #   code-annotations
 jsonfield==3.1.0
     # via -r requirements/test.txt
-keyring==23.6.0
+keyring==23.13.1
     # via twine
-lazy-object-proxy==1.7.1
+lazy-object-proxy==1.9.0
     # via astroid
-markupsafe==2.1.1
+markdown-it-py==2.1.0
+    # via rich
+markupsafe==2.1.2
     # via
     #   -r requirements/test.txt
     #   jinja2
 mccabe==0.7.0
     # via pylint
-newrelic==7.14.0.177
+mdurl==0.1.2
+    # via markdown-it-py
+more-itertools==9.0.0
+    # via jaraco-classes
+newrelic==8.5.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-packaging==21.3
+packaging==23.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pbr==5.9.0
+pbr==5.11.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.8.3
+pkginfo==1.9.6
     # via twine
-platformdirs==2.5.2
+platformdirs==2.6.2
     # via pylint
 pluggy==1.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-psutil==5.9.1
+psutil==5.9.4
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-py==1.11.0
-    # via
-    #   -r requirements/test.txt
-    #   pytest
-pycodestyle==2.8.0
+pycodestyle==2.10.0
     # via -r requirements/quality.in
 pycparser==2.21
     # via
     #   -r requirements/test.txt
     #   cffi
-pydocstyle==6.1.1
+pydocstyle==6.3.0
     # via -r requirements/quality.in
-pygments==2.12.0
+pygments==2.14.0
     # via
     #   readme-renderer
     #   rich
-pylint==2.14.4
+pylint==2.15.10
     # via
     #   edx-lint
     #   pylint-celery
@@ -157,7 +171,7 @@ pylint-plugin-utils==0.7
     # via
     #   pylint-celery
     #   pylint-django
-pymongo==3.12.3
+pymongo==3.13.0
     # via
     #   -r requirements/test.txt
     #   edx-opaque-keys
@@ -165,24 +179,20 @@ pynacl==1.5.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-pyparsing==3.0.9
-    # via
-    #   -r requirements/test.txt
-    #   packaging
-pytest==7.1.2
+pytest==7.2.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==3.0.0
+pytest-cov==4.0.0
     # via -r requirements/test.txt
 pytest-django==4.5.2
     # via -r requirements/test.txt
-python-slugify==6.1.2
+python-slugify==8.0.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
-pytz==2022.1
+pytz==2022.7.1
     # via
     #   -r requirements/test.txt
     #   django
@@ -190,17 +200,18 @@ pyyaml==6.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
-readme-renderer==35.0
+readme-renderer==37.3
     # via twine
-requests==2.28.1
+requests==2.28.2
     # via
+    #   -r requirements/test.txt
     #   requests-toolbelt
     #   twine
-requests-toolbelt==0.9.1
+requests-toolbelt==0.10.1
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==12.5.1
+rich==13.3.1
     # via twine
 six==1.16.0
     # via
@@ -208,11 +219,11 @@ six==1.16.0
     #   edx-lint
 snowballstemmer==2.2.0
     # via pydocstyle
-sqlparse==0.4.2
+sqlparse==0.4.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==4.0.0
+stevedore==4.1.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -228,25 +239,25 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.11.1
+tomlkit==0.11.6
     # via pylint
-twine==4.0.1
+twine==4.0.2
     # via -r requirements/quality.in
-typing-extensions==4.3.0
+typing-extensions==4.4.0
     # via
     #   astroid
     #   pylint
     #   rich
-urllib3==1.26.10
+urllib3==1.26.14
     # via
+    #   -r requirements/test.txt
     #   requests
     #   twine
 webencodings==0.5.1
     # via bleach
 wrapt==1.14.1
     # via astroid
-zipp==3.8.1
-    # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
+zipp==3.12.0
+    # via
+    #   importlib-metadata
+    #   importlib-resources
