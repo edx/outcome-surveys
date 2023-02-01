@@ -59,3 +59,28 @@ TEMPLATES = [{
         ],
     },
 }]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            'format': '%(asctime)s %(name)-12s:%(lineno)d %(levelname)-8s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'console',
+        },
+    },
+    'loggers': {
+        '': {
+            'level': 'INFO',
+            'handlers': ['console'],
+        },
+    },
+}
+
+USE_TZ = True
+SURVEYMONKEY_ACCESS_TOKEN = 'I am an access token'

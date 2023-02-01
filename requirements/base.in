@@ -6,3 +6,4 @@ django-model-utils        # Provides TimeStampedModel abstract base class
 jsonfield
 edx-opaque-keys
 edx-django-utils
+requests

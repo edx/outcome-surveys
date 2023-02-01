@@ -49,3 +49,276 @@ class LearnerCourseEvent(TimeStampedModel):
         """
         # TODO: return a string appropriate for the data fields
         return '<LearnerCourseEvent, ID: {}>'.format(self.id)
+
+
+class MultiChoiceResponse(TimeStampedModel):
+    """
+    Learner's survey response for multi choice questions.
+
+    .. no_pii:
+    """
+
+    answer = models.TextField()
+
+    class Meta:
+        """
+        Meta class for MultiChoiceResponse.
+        """
+
+        app_label = "outcome_surveys"
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        return f'<answer: {self.answer}>'
+
+
+class CourseReflection(TimeStampedModel):
+    """
+    Learner's reflections about a Course.
+
+    .. no_pii:
+    """
+
+    survey_id = models.IntegerField()
+    survey_response_id = models.IntegerField()
+    enrollment_type = models.CharField(
+        max_length=16,
+        null=True,
+        help_text=("Enrollment type. B2C or B2B"),
+    )
+    lms_enrollment_id = models.IntegerField(
+        null=True,
+        help_text=("Learner's LMS course enrollment id."),
+    )
+    # multiple choice
+    online_learning_goals = models.ManyToManyField(
+        MultiChoiceResponse,
+        related_name="+",
+        help_text=("What is your goal with online learning?")
+    )
+    # multiple choice
+    goal_decisions = models.ManyToManyField(
+        MultiChoiceResponse,
+        related_name="+",
+        help_text=("How did you decide on that goal?")
+    )
+    help_reach_goal = models.CharField(
+        max_length=256,
+        null=True,
+        help_text=("How confident are you that the learning you did in this course will help you reach your goal?")
+    )
+    course_rating = models.IntegerField(
+        null=True,
+        help_text=("How would you rate the quality of this course?")
+    )
+    course_experience = models.TextField(
+        null=True,
+        help_text=("Is there anything else you'd like to add about your experience in the course?")
+    )
+    open_to_outreach = models.BooleanField(
+        null=True,
+        help_text=("Would you be open to someone from edX reaching out to learn more about your experience?")
+    )
+
+    @classmethod
+    def save_response(cls, response):
+        """
+        Save a survey response.
+        """
+        survey_response = response.copy()
+
+        online_learning_goals = survey_response.pop("online_learning_goals") or []
+        goal_decisions = survey_response.pop("goal_decisions") or []
+        survey_id = survey_response.pop('survey_id')
+        survey_response_id = survey_response.pop('survey_response_id')
+
+        course_reflection, __ = cls.objects.update_or_create(
+            survey_id=survey_id,
+            survey_response_id=survey_response_id,
+            defaults=survey_response
+        )
+
+        online_learning_goal_objs = []
+        for online_learning_goal in online_learning_goals:
+            obj, __ = MultiChoiceResponse.objects.get_or_create(answer=online_learning_goal)
+            online_learning_goal_objs.append(obj)
+        course_reflection.online_learning_goals.set(online_learning_goal_objs)
+
+        goal_decision_objs = []
+        for goal_decision in goal_decisions:
+            obj, __ = MultiChoiceResponse.objects.get_or_create(answer=goal_decision)
+            goal_decision_objs.append(obj)
+        course_reflection.goal_decisions.set(goal_decision_objs)
+
+    class Meta:
+        """
+        Meta class for CourseReflection.
+        """
+
+        app_label = "outcome_surveys"
+        indexes = [
+            models.Index(fields=['lms_enrollment_id']),
+        ]
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        return f'<SurveyId: [{self.survey_id}], ResponseId: [{self.survey_response_id}]>'
+
+
+class CourseGoal(TimeStampedModel):
+    """
+    Learner's feedback about course goal.
+
+    .. no_pii:
+    """
+
+    survey_id = models.IntegerField()
+    survey_response_id = models.IntegerField()
+    enrollment_type = models.CharField(
+        max_length=16,
+        null=True,
+        help_text=("Enrollment type. B2C or B2B"),
+    )
+    lms_enrollment_id = models.IntegerField(
+        null=True,
+        help_text=("Learner's LMS course enrollment id."),
+    )
+    #  common fields
+    # multiple choice
+    online_learning_goals = models.ManyToManyField(
+        MultiChoiceResponse,
+        related_name="+",
+        help_text=("What is your goal with online learning?")
+    )
+    goal_achieved = models.BooleanField(
+        null=True,
+        help_text=("Did you achieve that goal?")
+    )
+    online_learning_goal = models.TextField(
+        null=True,
+        help_text=("In a few words, describe your goal for online learning.")
+    )
+    open_to_outreach = models.BooleanField(
+        null=True,
+        help_text=("Would you be open to someone from edX reaching out to learn more about your experience?")
+    )
+
+    # fields for passed learners
+    salary_change = models.BooleanField(
+        null=True,
+        help_text=("Did you experience any salary changes as a result of meeting this goal?")
+    )
+    job_promotion = models.BooleanField(
+        null=True,
+        help_text=("Did you experience a job promotion or job change as a result of meeting this goal?")
+    )
+    learning_experience_importance = models.CharField(
+        max_length=256,
+        null=True,
+        help_text=("How important was the learning experience you had on edX for achieving that goal?")
+    )
+    experience_impacted_goals = models.TextField(
+        null=True,
+        help_text=("Is there anything else you’d like to share about how your experience on edX impacted your goals?")
+    )
+
+    # fields for failed learners
+    close_to_goal = models.CharField(
+        max_length=256,
+        null=True,
+        help_text=("How close are you from achieving your goal?")
+    )
+    factors_influenced_timeline = models.TextField(
+        null=True,
+        help_text=("What factors influenced the timeline for your goal?")
+    )
+    achieve_goal_sooner = models.TextField(
+        null=True,
+        help_text=("Is there anything that could have gone different with your experience on edX to help you achieve your goal sooner?")  # nopep8 pylint: disable=line-too-long
+    )
+
+    @classmethod
+    def save_response(cls, response):
+        """
+        Save a survey response.
+        """
+        survey_response = response.copy()
+
+        online_learning_goals = survey_response.pop("online_learning_goals") or []
+        survey_id = survey_response.pop('survey_id')
+        survey_response_id = survey_response.pop('survey_response_id')
+
+        course_goal, __ = cls.objects.update_or_create(
+            survey_id=survey_id,
+            survey_response_id=survey_response_id,
+            defaults=survey_response
+        )
+
+        online_learning_goal_objs = []
+        for online_learning_goal in online_learning_goals:
+            obj, __ = MultiChoiceResponse.objects.get_or_create(answer=online_learning_goal)
+            online_learning_goal_objs.append(obj)
+        course_goal.online_learning_goals.set(online_learning_goal_objs)
+
+    class Meta:
+        """
+        Meta class for CourseGoal.
+        """
+
+        app_label = "outcome_surveys"
+        indexes = [
+            models.Index(fields=['lms_enrollment_id']),
+        ]
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        return f'<SurveyId: [{self.survey_id}], ResponseId: [{self.survey_response_id}]>'
+
+
+class SurveyExport(TimeStampedModel):
+    """
+    Survey export metadata.
+
+    .. no_pii:
+    """
+
+    survey_id = models.IntegerField(null=False)
+    last_successfull_export_at = models.DateTimeField(null=False)
+
+    @classmethod
+    def save_export_timestamp(cls, survey_id, timestamp):
+        """
+        Save `last_successfull_export_at` for `survey_id`.
+        """
+        if timestamp:
+            cls.objects.update_or_create(survey_id=survey_id, defaults={"last_successfull_export_at": timestamp})
+
+    @classmethod
+    def last_successfull_export_timestamp(cls, survey_id):
+        """
+        Return `last_successfull_export_at` in ISO format.
+        """
+        try:
+            return cls.objects.get(survey_id=survey_id).last_successfull_export_at.isoformat()
+        except SurveyExport.DoesNotExist:
+            return None
+
+    class Meta:
+        """
+        Meta class for SurveyExport.
+        """
+
+        app_label = "outcome_surveys"
+
+    def __str__(self):
+        """
+        Get a string representation of this model instance.
+        """
+        last_export_ts = self.last_successfull_export_timestamp(self.survey_id)
+        return f'<SurveyId: [{self.survey_id}], LastExportAt: [{last_export_ts}]>'
