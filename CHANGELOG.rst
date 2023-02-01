@@ -15,6 +15,10 @@ Unreleased
 ~~~~~~~~~~
 
 
+[2.0.0] - 2023-02-01
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Django management command to import data from SurveyMonkey
+
 [1.1.1] - 2022-09-06
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Add `already_sent` boolean field in `LearnerCourseEvent` model to store the state for sent events.
