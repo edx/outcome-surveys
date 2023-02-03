@@ -60,6 +60,21 @@ class MultiChoiceResponse(TimeStampedModel):
 
     answer = models.TextField()
 
+    @staticmethod
+    def save_answers(parent, related_field_name, user_choices):
+        """
+        Store answers.
+        """
+        answers = []
+        for user_choice in user_choices:
+            answer = MultiChoiceResponse.objects.filter(answer=user_choice).first()
+            if answer is None:
+                answer = MultiChoiceResponse.objects.create(answer=user_choice)
+            answers.append(answer)
+
+        instance_related_field = getattr(parent, related_field_name)
+        instance_related_field.set(answers)
+
     class Meta:
         """
         Meta class for MultiChoiceResponse.
@@ -82,7 +97,7 @@ class CourseReflection(TimeStampedModel):
     """
 
     survey_id = models.IntegerField()
-    survey_response_id = models.IntegerField()
+    survey_response_id = models.BigIntegerField()
     enrollment_type = models.CharField(
         max_length=16,
         null=True,
@@ -140,17 +155,8 @@ class CourseReflection(TimeStampedModel):
             defaults=survey_response
         )
 
-        online_learning_goal_objs = []
-        for online_learning_goal in online_learning_goals:
-            obj, __ = MultiChoiceResponse.objects.get_or_create(answer=online_learning_goal)
-            online_learning_goal_objs.append(obj)
-        course_reflection.online_learning_goals.set(online_learning_goal_objs)
-
-        goal_decision_objs = []
-        for goal_decision in goal_decisions:
-            obj, __ = MultiChoiceResponse.objects.get_or_create(answer=goal_decision)
-            goal_decision_objs.append(obj)
-        course_reflection.goal_decisions.set(goal_decision_objs)
+        MultiChoiceResponse.save_answers(course_reflection, 'online_learning_goals', online_learning_goals)
+        MultiChoiceResponse.save_answers(course_reflection, 'goal_decisions', goal_decisions)
 
     class Meta:
         """
@@ -158,7 +164,10 @@ class CourseReflection(TimeStampedModel):
         """
 
         app_label = "outcome_surveys"
+        unique_together = ("survey_id", "survey_response_id",)
         indexes = [
+            models.Index(fields=['survey_id', 'survey_response_id']),
+            models.Index(fields=['survey_response_id']),
             models.Index(fields=['lms_enrollment_id']),
         ]
 
@@ -177,7 +186,7 @@ class CourseGoal(TimeStampedModel):
     """
 
     survey_id = models.IntegerField()
-    survey_response_id = models.IntegerField()
+    survey_response_id = models.BigIntegerField()
     enrollment_type = models.CharField(
         max_length=16,
         null=True,
@@ -258,11 +267,7 @@ class CourseGoal(TimeStampedModel):
             defaults=survey_response
         )
 
-        online_learning_goal_objs = []
-        for online_learning_goal in online_learning_goals:
-            obj, __ = MultiChoiceResponse.objects.get_or_create(answer=online_learning_goal)
-            online_learning_goal_objs.append(obj)
-        course_goal.online_learning_goals.set(online_learning_goal_objs)
+        MultiChoiceResponse.save_answers(course_goal, 'online_learning_goals', online_learning_goals)
 
     class Meta:
         """
@@ -270,7 +275,10 @@ class CourseGoal(TimeStampedModel):
         """
 
         app_label = "outcome_surveys"
+        unique_together = ("survey_id", "survey_response_id",)
         indexes = [
+            models.Index(fields=['survey_id', 'survey_response_id']),
+            models.Index(fields=['survey_response_id']),
             models.Index(fields=['lms_enrollment_id']),
         ]
 

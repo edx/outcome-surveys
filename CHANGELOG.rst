@@ -15,6 +15,12 @@ Unreleased
 ~~~~~~~~~~
 
 
+[2.1.0] - 2023-02-03
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Add uniqe constraints on table fields
+* Replace `get_or_create`` with custom implementation
+* Gracefully exit command upon `SurveyMonkeyDailyRateLimitConsumed` exception
+
 [2.0.0] - 2023-02-01
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Django management command to import data from SurveyMonkey

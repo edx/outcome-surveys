@@ -7,7 +7,7 @@ import logging
 from django.core.management.base import BaseCommand
 
 from outcome_surveys.models import CourseGoal, CourseReflection, SurveyExport
-from outcome_surveys.surveymonkey_client import SurveyMonkeyApiClient
+from outcome_surveys.surveymonkey_client import SurveyMonkeyApiClient, SurveyMonkeyDailyRateLimitConsumed
 
 LOGGER = logging.getLogger(__name__)
 
@@ -337,8 +337,13 @@ class Command(BaseCommand):
                     url
                 )
 
-                # fetch 100 responses at a time
-                survey_responses = client.fetch_survey_responses(url)
+                try:
+                    # fetch 100 responses at a time
+                    survey_responses = client.fetch_survey_responses(url)
+                except SurveyMonkeyDailyRateLimitConsumed:
+                    LOGGER.info("Consumed daily api call limit. Can not make more calls.")
+                    return
+
                 survey_responses = survey_responses.json()
                 date_modified = None
 
