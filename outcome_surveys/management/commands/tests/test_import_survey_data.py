@@ -14,7 +14,7 @@ from outcome_surveys.management.commands import import_survey_data
 from outcome_surveys.management.commands.import_survey_data import Command
 from outcome_surveys.management.commands.tests.mock_responses import MOCK_API_RESPONSES, MOCK_RESPONSE_HEADERS
 from outcome_surveys.models import CourseGoal, CourseReflection, MultiChoiceResponse, SurveyExport
-from outcome_surveys.surveymonkey_client import Session, SurveyMonkeyDailyRateLimitConsumed
+from outcome_surveys.surveymonkey_client import Session
 
 
 class MockResponse:
@@ -156,18 +156,14 @@ class TestImportSurveyDataCommand(TestCase):
             survey_date_modified = survey['data'][0]['date_modified']
             assert SurveyExport.last_successfull_export_timestamp(survey_id=survey_id) == survey_date_modified
 
-    def test_command_with_ratelimit(self):
+    @patch('outcome_surveys.management.commands.import_survey_data.LOGGER')
+    def test_command_with_ratelimit(self, mocked_logger):
         """
         Verify that management command works as expected in non-commit mode.
         """
         with patch.object(Session, 'get', side_effect=mocked_get_function_with_rate_limit_exception):
-            try:
-                exception_raised = False
-                call_command(self.command)
-            except SurveyMonkeyDailyRateLimitConsumed:
-                exception_raised = True
-
-            assert exception_raised
+            call_command(self.command)
+            mocked_logger.info.assert_called_with('Consumed daily api call limit. Can not make more calls.')
 
     def test_command_with_commit(self):
         """
