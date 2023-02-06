@@ -6,7 +6,7 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-from outcome_surveys.models import CourseGoal, CourseReflection, SurveyExport
+from outcome_surveys.models import CourseGoal, CourseReflection, MultiChoiceResponse, SurveyExport
 from outcome_surveys.surveymonkey_client import SurveyMonkeyApiClient, SurveyMonkeyDailyRateLimitConsumed
 
 LOGGER = logging.getLogger(__name__)
@@ -313,6 +313,15 @@ class Command(BaseCommand):
         """
         Command's entry point.
         """
+        try:
+            self.start_command(options)
+        except Exception:  # pylint: disable=broad-except
+            LOGGER.exception('Command aborted due to an exception', exc_info=True)
+
+    def start_command(self, options):
+        """
+        Execute command.
+        """
         commit_to_db = options['commit']
 
         log_prefix = '[IMPORT_SURVEY_DATA]'
@@ -320,6 +329,12 @@ class Command(BaseCommand):
             log_prefix = '[DRY RUN]'
 
         LOGGER.info(f'{log_prefix} Command started.')
+
+        # do a cleanup
+        CourseReflection.objects.all().delete()
+        CourseGoal.objects.all().delete()
+        MultiChoiceResponse.objects.all().delete()
+        SurveyExport.objects.all().delete()
 
         for survey_schema in self.surveys():
 
