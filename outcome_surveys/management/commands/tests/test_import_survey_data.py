@@ -121,8 +121,8 @@ class TestImportSurveyDataCommand(TestCase):
 
         assert course_reflection[0].salary_change is None
         assert course_reflection[0].job_promotion is None
-        assert course_reflection[0].learning_experience_importance is None
-        assert course_reflection[0].experience_impacted_goals is None
+        assert course_reflection[0].learning_experience_importance == ''
+        assert course_reflection[0].experience_impacted_goals == ''
 
         assert course_reflection[0].close_to_goal == '6-12 months'
         assert course_reflection[0].factors_influenced_timeline == 'Quality of edX content'
@@ -144,9 +144,9 @@ class TestImportSurveyDataCommand(TestCase):
         assert course_reflection[1].learning_experience_importance == 'Extremely important'
         assert course_reflection[1].experience_impacted_goals == 'everything was well planned in the course.'
 
-        assert course_reflection[1].close_to_goal is None
-        assert course_reflection[1].factors_influenced_timeline is None
-        assert course_reflection[1].achieve_goal_sooner is None
+        assert course_reflection[1].close_to_goal == ''
+        assert course_reflection[1].factors_influenced_timeline == ''
+        assert course_reflection[1].achieve_goal_sooner == ''
 
     def verify_survey_export(self):
         """

@@ -6,7 +6,8 @@ import logging
 
 from django.core.management.base import BaseCommand
 
-from outcome_surveys.models import CourseGoal, CourseReflection, MultiChoiceResponse, SurveyExport
+from outcome_surveys.constants import ENROLLMENT_TYPE_B2B, ENROLLMENT_TYPE_B2C
+from outcome_surveys.models import CourseGoal, CourseReflection, SurveyExport
 from outcome_surveys.surveymonkey_client import SurveyMonkeyApiClient, SurveyMonkeyDailyRateLimitConsumed
 
 LOGGER = logging.getLogger(__name__)
@@ -37,7 +38,7 @@ class Command(BaseCommand):
             {
                 "id": 505286548,
                 "title": "Course Reflections",
-                "type": "B2B",
+                "type": ENROLLMENT_TYPE_B2B,
                 "question_to_field_map": {
                     "62507216": "online_learning_goals",
                     "62512578": "goal_decisions",
@@ -50,7 +51,7 @@ class Command(BaseCommand):
             {
                 "id": 507302428,
                 "title": "Course Reflections",
-                "type": "B2C",
+                "type": ENROLLMENT_TYPE_B2C,
                 "question_to_field_map": {
                     "81620009": "online_learning_goals",
                     "81620010": "goal_decisions",
@@ -63,7 +64,7 @@ class Command(BaseCommand):
             {
                 "id": 402311594,
                 "title": "How are your goals going?",
-                "type": "B2C",
+                "type": ENROLLMENT_TYPE_B2C,
                 "question_to_field_map": {
                     "81737604": "online_learning_goals",
                     "81737605": "goal_achieved",
@@ -92,7 +93,7 @@ class Command(BaseCommand):
             {
                 "id": 505288401,
                 "title": "How are your goals going?",
-                "type": "B2B",
+                "type": ENROLLMENT_TYPE_B2B,
                 "question_to_field_map": {
                     "62523202": "online_learning_goals",
                     "62524373": "goal_achieved",
@@ -329,12 +330,6 @@ class Command(BaseCommand):
             log_prefix = '[DRY RUN]'
 
         LOGGER.info(f'{log_prefix} Command started.')
-
-        # do a cleanup
-        CourseReflection.objects.all().delete()
-        CourseGoal.objects.all().delete()
-        MultiChoiceResponse.objects.all().delete()
-        SurveyExport.objects.all().delete()
 
         for survey_schema in self.surveys():
 

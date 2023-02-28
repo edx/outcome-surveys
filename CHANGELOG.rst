@@ -15,6 +15,10 @@ Unreleased
 ~~~~~~~~~~
 
 
+[2.3.0] - 2023-02-27
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Remove null=True from char and text model fields
+
 [2.1.0] - 2023-02-03
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Add uniqe constraints on table fields

@@ -7,7 +7,7 @@ from jsonfield import JSONField
 from model_utils.models import TimeStampedModel
 from opaque_keys.edx.django.models import CourseKeyField
 
-from outcome_surveys.constants import SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE
+from outcome_surveys.constants import ENROLLMENT_TYPE_B2C, SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE
 
 
 class LearnerCourseEvent(TimeStampedModel):
@@ -100,7 +100,7 @@ class CourseReflection(TimeStampedModel):
     survey_response_id = models.BigIntegerField()
     enrollment_type = models.CharField(
         max_length=16,
-        null=True,
+        default=ENROLLMENT_TYPE_B2C,
         help_text=("Enrollment type. B2C or B2B"),
     )
     lms_enrollment_id = models.IntegerField(
@@ -121,7 +121,7 @@ class CourseReflection(TimeStampedModel):
     )
     help_reach_goal = models.CharField(
         max_length=256,
-        null=True,
+        default="",
         help_text=("How confident are you that the learning you did in this course will help you reach your goal?")
     )
     course_rating = models.IntegerField(
@@ -129,7 +129,7 @@ class CourseReflection(TimeStampedModel):
         help_text=("How would you rate the quality of this course?")
     )
     course_experience = models.TextField(
-        null=True,
+        default="",
         help_text=("Is there anything else you'd like to add about your experience in the course?")
     )
     open_to_outreach = models.BooleanField(
@@ -148,6 +148,11 @@ class CourseReflection(TimeStampedModel):
         goal_decisions = survey_response.pop("goal_decisions") or []
         survey_id = survey_response.pop('survey_id')
         survey_response_id = survey_response.pop('survey_response_id')
+
+        # None to "" conversion for char and text fields where default is set to ""
+        empty_string_fields = ('help_reach_goal', 'course_experience')
+        for field in empty_string_fields:
+            survey_response[field] = survey_response[field] or ""
 
         course_reflection, __ = cls.objects.update_or_create(
             survey_id=survey_id,
@@ -189,7 +194,7 @@ class CourseGoal(TimeStampedModel):
     survey_response_id = models.BigIntegerField()
     enrollment_type = models.CharField(
         max_length=16,
-        null=True,
+        default=ENROLLMENT_TYPE_B2C,
         help_text=("Enrollment type. B2C or B2B"),
     )
     lms_enrollment_id = models.IntegerField(
@@ -208,7 +213,7 @@ class CourseGoal(TimeStampedModel):
         help_text=("Did you achieve that goal?")
     )
     online_learning_goal = models.TextField(
-        null=True,
+        default="",
         help_text=("In a few words, describe your goal for online learning.")
     )
     open_to_outreach = models.BooleanField(
@@ -227,26 +232,26 @@ class CourseGoal(TimeStampedModel):
     )
     learning_experience_importance = models.CharField(
         max_length=256,
-        null=True,
+        default="",
         help_text=("How important was the learning experience you had on edX for achieving that goal?")
     )
     experience_impacted_goals = models.TextField(
-        null=True,
+        default="",
         help_text=("Is there anything else you’d like to share about how your experience on edX impacted your goals?")
     )
 
     # fields for failed learners
     close_to_goal = models.CharField(
         max_length=256,
-        null=True,
+        default="",
         help_text=("How close are you from achieving your goal?")
     )
     factors_influenced_timeline = models.TextField(
-        null=True,
+        default="",
         help_text=("What factors influenced the timeline for your goal?")
     )
     achieve_goal_sooner = models.TextField(
-        null=True,
+        default="",
         help_text=("Is there anything that could have gone different with your experience on edX to help you achieve your goal sooner?")  # nopep8 pylint: disable=line-too-long
     )
 
@@ -260,6 +265,18 @@ class CourseGoal(TimeStampedModel):
         online_learning_goals = survey_response.pop("online_learning_goals") or []
         survey_id = survey_response.pop('survey_id')
         survey_response_id = survey_response.pop('survey_response_id')
+
+        # None to "" conversion for char and text fields where default is set to ""
+        empty_string_fields = (
+            'close_to_goal',
+            'achieve_goal_sooner',
+            'online_learning_goal',
+            'experience_impacted_goals',
+            'factors_influenced_timeline',
+            'learning_experience_importance',
+        )
+        for field in empty_string_fields:
+            survey_response[field] = survey_response[field] or ""
 
         course_goal, __ = cls.objects.update_or_create(
             survey_id=survey_id,
