@@ -314,10 +314,7 @@ class Command(BaseCommand):
         """
         Command's entry point.
         """
-        try:
-            self.start_command(options)
-        except Exception:  # pylint: disable=broad-except
-            LOGGER.exception('Command aborted due to an exception', exc_info=True)
+        self.start_command(options)
 
     def start_command(self, options):
         """
