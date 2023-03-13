@@ -314,7 +314,12 @@ class Command(BaseCommand):
         """
         Command's entry point.
         """
-        self.start_command(options)
+        try:
+            self.start_command(options)
+            self.delete_survey_responses()
+        except SurveyMonkeyDailyRateLimitConsumed:
+            LOGGER.info("Consumed daily api call limit. Can not make more calls.")
+            return
 
     def start_command(self, options):
         """
@@ -344,12 +349,8 @@ class Command(BaseCommand):
                     url
                 )
 
-                try:
-                    # fetch 100 responses at a time
-                    survey_responses = client.fetch_survey_responses(url)
-                except SurveyMonkeyDailyRateLimitConsumed:
-                    LOGGER.info("Consumed daily api call limit. Can not make more calls.")
-                    return
+                # fetch 100 responses at a time
+                survey_responses = client.fetch_survey_responses(url)
 
                 survey_responses = survey_responses.json()
                 date_modified = None
@@ -390,3 +391,14 @@ class Command(BaseCommand):
             LOGGER.info("%s Completed survey export for ID: [%s]", log_prefix, survey_id)
 
         LOGGER.info("%s Command completed. Completed export for all surveys.", log_prefix)
+
+    def delete_survey_responses(self):
+        """
+        Delete as many as possible survey reponses.
+        """
+        for survey_schema in self.surveys():
+            survey_id = survey_schema['id']
+            last_successfull_export_timestamp = self.last_successfull_export_timestamp(survey_id)
+            client = SurveyMonkeyApiClient(survey_id)
+            # Delete all responses of a survey before `last_successfull_export_timestamp`
+            client.delete_survey_responses(end_created_at=last_successfull_export_timestamp)

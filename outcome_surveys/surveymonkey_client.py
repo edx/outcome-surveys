@@ -132,3 +132,41 @@ class SurveyMonkeyApiClient:
         response = self.client.get(api_url)
         response.raise_for_status()
         return response
+
+    @ensure_rate_limit_constraints
+    def delete_single_survey_response(self, survey_response_id):
+        """
+        Maka a HTTP DELETE call to SurveyMonkey to delete a single survey response.
+        """
+        endpoint = f"{self.API_BASE_URL}surveys/{self.survey_id}/responses/{survey_response_id}"
+        LOGGER.info(f"Deleting {endpoint}")
+        response = self.client.delete(endpoint)
+        return response
+
+    def delete_survey_responses(self, end_created_at):
+        """
+        Delete responses belong to a survey.
+        """
+        LOGGER.info(f"Going to delete responses of {self.survey_id}")
+
+        query_params = {
+            'sort_order': 'ASC',
+            'per_page': 100,
+            'end_created_at': end_created_at,
+        }
+
+        query_params_encoded = urlencode(query_params)
+        bulk_responses_endpoint = urljoin(
+            f"{self.API_BASE_URL}/", f'surveys/{self.survey_id}/responses/bulk?{query_params_encoded}'
+        )
+
+        while True:
+            response = self.fetch_survey_responses(bulk_responses_endpoint)
+            survey_responses = response.json()
+
+            for survey_response in survey_responses.get('data'):
+                self.delete_single_survey_response(survey_response['id'])
+
+            bulk_responses_endpoint = survey_responses.get('links').get('next')
+            if bulk_responses_endpoint is None:
+                break

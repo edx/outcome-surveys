@@ -174,8 +174,9 @@ class TestImportSurveyDataCommand(TestCase):
         assert MultiChoiceResponse.objects.count() == 0
         assert SurveyExport.objects.count() == 0
 
-        with patch.object(Session, 'get', side_effect=mocked_get_function):
-            call_command(self.command, '--commit')
+        with patch.object(Session, 'delete'):
+            with patch.object(Session, 'get', side_effect=mocked_get_function):
+                call_command(self.command, '--commit')
 
         assert CourseReflection.objects.count() == 2
         assert CourseGoal.objects.count() == 2
@@ -204,8 +205,9 @@ class TestImportSurveyDataCommand(TestCase):
         assert MultiChoiceResponse.objects.count() == 0
         assert SurveyExport.objects.count() == 0
 
-        with patch.object(Session, 'get', side_effect=mocked_get_function):
-            call_command(self.command)
+        with patch.object(Session, 'delete'):
+            with patch.object(Session, 'get', side_effect=mocked_get_function):
+                call_command(self.command)
 
         assert CourseReflection.objects.count() == 0
         assert CourseGoal.objects.count() == 0
