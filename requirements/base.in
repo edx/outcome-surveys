@@ -7,3 +7,4 @@ jsonfield
 edx-opaque-keys
 edx-django-utils
 requests
+snowflake-connector-python
