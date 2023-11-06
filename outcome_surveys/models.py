@@ -7,7 +7,11 @@ from jsonfield import JSONField
 from model_utils.models import TimeStampedModel
 from opaque_keys.edx.django.models import CourseKeyField
 
-from outcome_surveys.constants import ENROLLMENT_TYPE_B2C, SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE
+from outcome_surveys.constants import (
+    ENROLLMENT_TYPE_B2C,
+    SEGMENT_LEARNER_ACHIEVED_LEARNING_TIME_EVENT_TYPE,
+    SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
+)
 
 
 class LearnerCourseEvent(TimeStampedModel):
@@ -24,6 +28,7 @@ class LearnerCourseEvent(TimeStampedModel):
 
     EVENT_CHOICES = [
         (SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE, SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE),
+        (SEGMENT_LEARNER_ACHIEVED_LEARNING_TIME_EVENT_TYPE, SEGMENT_LEARNER_ACHIEVED_LEARNING_TIME_EVENT_TYPE),
     ]
     event_type = models.CharField(
         max_length=255,
@@ -252,7 +257,7 @@ class CourseGoal(TimeStampedModel):
     )
     achieve_goal_sooner = models.TextField(
         default="",
-        help_text=("Is there anything that could have gone different with your experience on edX to help you achieve your goal sooner?")  # nopep8 pylint: disable=line-too-long
+        help_text=("Is there anything that could have gone different with your experience on edX to help you achieve your goal sooner?")  # nopep8 pylint: disable=line-too-long, superfluous-parens
     )
 
     @classmethod

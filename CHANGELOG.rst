@@ -15,6 +15,10 @@ Unreleased
 ~~~~~~~~~~
 
 
+[2.5.0] - 2023-11-02
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Add management command to trigger segment events for learners who have achieved 30 minutes of learning
+
 [2.4.0] - 2023-03-13
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Add support to delete survey responses

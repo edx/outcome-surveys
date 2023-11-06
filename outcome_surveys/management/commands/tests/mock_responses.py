@@ -486,3 +486,35 @@ MOCK_RESPONSE_HEADERS = {
     "X-Ratelimit-App-Global-Day-Remaining": 17,
     "X-Ratelimit-App-Global-Day-Reset": 120,
 }
+
+
+MOCK_QUERY_DATA = [
+    {
+        'USER_ID': 5000,
+        'LEARNING_TIME_SECONDS': 2000,
+        'COURSERUN_KEY': 'course-v1:UUX+ITAx+1T2022',
+        'COURSE_KEY': 'UUX+ITAx',
+        'COURSERUN_TITLE': 'Intro to Accounting'
+    },
+    {
+        'USER_ID': 5001,
+        'LEARNING_TIME_SECONDS': 2500,
+        'COURSERUN_KEY': 'course-v1:BCC+ITC+1T2023',
+        'COURSE_KEY': 'BCC+ITC',
+        'COURSERUN_TITLE': 'Intro to Calculus'
+    },
+    {
+        'USER_ID': 5002,
+        'LEARNING_TIME_SECONDS': 1800,
+        'COURSERUN_KEY': 'course-v1:ABC+CSA+1T2023',
+        'COURSE_KEY': 'ABC+CSA',
+        'COURSERUN_TITLE': 'Intro to Computer Architecture'
+    },
+    {
+        'USER_ID': 5003,
+        'LEARNING_TIME_SECONDS': 1990,
+        'COURSERUN_KEY': 'course-v1:XYZ+IQC+2T2023',
+        'COURSE_KEY': 'BCC+ITC',
+        'COURSERUN_TITLE': 'Intro to Quantum Computing'
+    }
+]

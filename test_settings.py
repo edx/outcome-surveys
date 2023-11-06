@@ -84,3 +84,6 @@ LOGGING = {
 
 USE_TZ = True
 SURVEYMONKEY_ACCESS_TOKEN = 'I am an access token'
+ENTERPRISE_VSF_UUID = '70df7d6085fe0766c7567639d444f19b'
+SNOWFLAKE_SERVICE_USER = 'sf_service_user'
+SNOWFLAKE_SERVICE_USER_PASSWORD = 'sf_service_user_password'
