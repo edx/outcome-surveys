@@ -11,9 +11,8 @@ asgiref==3.7.2
 asn1crypto==1.5.1
     # via
     #   -r requirements/base.txt
-    #   oscrypto
     #   snowflake-connector-python
-certifi==2023.7.22
+certifi==2023.11.17
     # via
     #   -r requirements/base.txt
     #   requests
@@ -24,7 +23,7 @@ cffi==1.16.0
     #   cryptography
     #   pynacl
     #   snowflake-connector-python
-charset-normalizer==3.3.1
+charset-normalizer==3.3.2
     # via
     #   -r requirements/base.txt
     #   requests
@@ -37,8 +36,10 @@ click==8.1.7
 code-annotations==1.5.0
     # via -r requirements/test.in
 coverage[toml]==7.3.2
-    # via pytest-cov
-cryptography==41.0.5
+    # via
+    #   coverage
+    #   pytest-cov
+cryptography==41.0.7
     # via
     #   -r requirements/base.txt
     #   pyopenssl
@@ -61,17 +62,17 @@ django-waffle==4.0.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-edx-django-utils==5.7.0
+edx-django-utils==5.9.0
     # via -r requirements/base.txt
 edx-opaque-keys==2.5.1
     # via -r requirements/base.txt
-exceptiongroup==1.1.3
+exceptiongroup==1.2.0
     # via pytest
 filelock==3.13.1
     # via
     #   -r requirements/base.txt
     #   snowflake-connector-python
-idna==3.4
+idna==3.6
     # via
     #   -r requirements/base.txt
     #   requests
@@ -84,25 +85,22 @@ jsonfield==3.1.0
     # via -r requirements/base.txt
 markupsafe==2.1.3
     # via jinja2
-newrelic==9.1.1
+newrelic==9.3.0
     # via
     #   -r requirements/base.txt
     #   edx-django-utils
-oscrypto==1.3.0
-    # via
-    #   -r requirements/base.txt
-    #   snowflake-connector-python
 packaging==23.2
     # via
     #   -r requirements/base.txt
     #   pytest
     #   snowflake-connector-python
-pbr==5.11.1
+pbr==6.0.0
     # via
     #   -r requirements/base.txt
     #   stevedore
 platformdirs==3.11.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/base.txt
     #   snowflake-connector-python
 pluggy==1.3.0
@@ -115,10 +113,6 @@ pycparser==2.21
     # via
     #   -r requirements/base.txt
     #   cffi
-pycryptodomex==3.19.0
-    # via
-    #   -r requirements/base.txt
-    #   snowflake-connector-python
 pyjwt==2.8.0
     # via
     #   -r requirements/base.txt
@@ -141,7 +135,7 @@ pytest==7.4.3
     #   pytest-django
 pytest-cov==4.1.0
     # via -r requirements/test.in
-pytest-django==4.6.0
+pytest-django==4.7.0
     # via -r requirements/test.in
 python-slugify==8.0.1
     # via code-annotations
@@ -156,7 +150,7 @@ requests==2.31.0
     # via
     #   -r requirements/base.txt
     #   snowflake-connector-python
-snowflake-connector-python==3.3.1
+snowflake-connector-python==3.6.0
     # via -r requirements/base.txt
 sortedcontainers==2.4.0
     # via
@@ -178,7 +172,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-tomlkit==0.12.1
+tomlkit==0.12.3
     # via
     #   -r requirements/base.txt
     #   snowflake-connector-python
