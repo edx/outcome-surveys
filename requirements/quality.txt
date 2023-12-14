@@ -11,13 +11,12 @@ asgiref==3.7.2
 asn1crypto==1.5.1
     # via
     #   -r requirements/test.txt
-    #   oscrypto
     #   snowflake-connector-python
 astroid==3.0.1
     # via
     #   pylint
     #   pylint-celery
-certifi==2023.7.22
+certifi==2023.11.17
     # via
     #   -r requirements/test.txt
     #   requests
@@ -28,7 +27,7 @@ cffi==1.16.0
     #   cryptography
     #   pynacl
     #   snowflake-connector-python
-charset-normalizer==3.3.1
+charset-normalizer==3.3.2
     # via
     #   -r requirements/test.txt
     #   requests
@@ -49,15 +48,16 @@ code-annotations==1.5.0
 coverage[toml]==7.3.2
     # via
     #   -r requirements/test.txt
+    #   coverage
     #   pytest-cov
-cryptography==41.0.5
+cryptography==41.0.7
     # via
     #   -r requirements/test.txt
     #   pyopenssl
     #   snowflake-connector-python
 dill==0.3.7
     # via pylint
-django==3.2.22
+django==3.2.23
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -78,13 +78,13 @@ django-waffle==4.0.0
     #   edx-django-utils
 docutils==0.20.1
     # via readme-renderer
-edx-django-utils==5.7.0
+edx-django-utils==5.9.0
     # via -r requirements/test.txt
 edx-lint==5.3.6
     # via -r requirements/quality.in
 edx-opaque-keys==2.5.1
     # via -r requirements/test.txt
-exceptiongroup==1.1.3
+exceptiongroup==1.2.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -92,16 +92,16 @@ filelock==3.13.1
     # via
     #   -r requirements/test.txt
     #   snowflake-connector-python
-idna==3.4
+idna==3.6
     # via
     #   -r requirements/test.txt
     #   requests
     #   snowflake-connector-python
-importlib-metadata==6.8.0
+importlib-metadata==7.0.0
     # via
     #   keyring
     #   twine
-importlib-resources==6.1.0
+importlib-resources==6.1.1
     # via keyring
 iniconfig==2.0.0
     # via
@@ -119,7 +119,7 @@ jinja2==3.1.2
     #   code-annotations
 jsonfield==3.1.0
     # via -r requirements/test.txt
-keyring==24.2.0
+keyring==24.3.0
     # via twine
 markdown-it-py==3.0.0
     # via rich
@@ -133,22 +133,18 @@ mdurl==0.1.2
     # via markdown-it-py
 more-itertools==10.1.0
     # via jaraco-classes
-newrelic==9.1.1
+newrelic==9.3.0
     # via
     #   -r requirements/test.txt
     #   edx-django-utils
-nh3==0.2.14
+nh3==0.2.15
     # via readme-renderer
-oscrypto==1.3.0
-    # via
-    #   -r requirements/test.txt
-    #   snowflake-connector-python
 packaging==23.2
     # via
     #   -r requirements/test.txt
     #   pytest
     #   snowflake-connector-python
-pbr==5.11.1
+pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -156,6 +152,7 @@ pkginfo==1.9.6
     # via twine
 platformdirs==3.11.0
     # via
+    #   -c requirements/constraints.txt
     #   -r requirements/test.txt
     #   pylint
     #   snowflake-connector-python
@@ -173,13 +170,9 @@ pycparser==2.21
     # via
     #   -r requirements/test.txt
     #   cffi
-pycryptodomex==3.19.0
-    # via
-    #   -r requirements/test.txt
-    #   snowflake-connector-python
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pygments==2.16.1
+pygments==2.17.2
     # via
     #   readme-renderer
     #   rich
@@ -220,7 +213,7 @@ pytest==7.4.3
     #   pytest-django
 pytest-cov==4.1.0
     # via -r requirements/test.txt
-pytest-django==4.6.0
+pytest-django==4.7.0
     # via -r requirements/test.txt
 python-slugify==8.0.1
     # via
@@ -247,13 +240,13 @@ requests-toolbelt==1.0.0
     # via twine
 rfc3986==2.0.0
     # via twine
-rich==13.6.0
+rich==13.7.0
     # via twine
 six==1.16.0
     # via edx-lint
 snowballstemmer==2.2.0
     # via pydocstyle
-snowflake-connector-python==3.3.1
+snowflake-connector-python==3.6.0
     # via -r requirements/test.txt
 sortedcontainers==2.4.0
     # via
@@ -279,7 +272,7 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.12.1
+tomlkit==0.12.3
     # via
     #   -r requirements/test.txt
     #   pylint
