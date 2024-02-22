@@ -15,6 +15,10 @@ Unreleased
 ~~~~~~~~~~
 
 
+[2.5.1] - 2024-02-22
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Update prepared learners query
+
 [2.5.0] - 2023-11-02
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Add management command to trigger segment events for learners who have achieved 30 minutes of learning
