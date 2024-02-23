@@ -22,34 +22,25 @@ log = logging.getLogger(__name__)
 
 ENTERPRISE = settings.ENTERPRISE_VSF_UUID
 QUERY = f'''
-WITH prepared_learners as (
--- get users who have hit :30
--- minutes threshold, but haven't been
--- surveyed yet.
-SELECT
-    user_id,
-    SUM(learning_time_seconds) as learning_time_seconds
-FROM
-    PROD.BUSINESS_INTELLIGENCE.LEARNING_TIME
-WHERE
-    enterprise_customer_uuid='{ENTERPRISE}'
-AND
-    user_id not in (
-        -- filter learners who already emitted this event.
-        SELECT
-            user_id
-        FROM
-            PROD.LMS.OUTCOME_SURVEYS_LEARNERCOURSEEVENT
-        WHERE
-            event_type = 'edx.course.learner.achieved.learning.time'
-        AND
-            already_sent = TRUE
-    )
-GROUP BY
-    user_id
-HAVING
-    -- filter learners who haven't hit the threshold.
-    SUM(learning_time_seconds) >= 1800
+WITH prepared_learners AS (
+    SELECT
+        lms_user_id as user_id
+    FROM
+        prod.enterprise.verizon_internal_reporting
+    WHERE
+        is_prepared_learner=TRUE
+    AND
+        lms_user_id NOT IN (
+            -- filter learners who already emitted this event
+            SELECT
+                user_id
+            FROM
+                PROD.LMS.OUTCOME_SURVEYS_LEARNERCOURSEEVENT
+            WHERE
+                event_type = 'edx.course.learner.achieved.learning.time'
+            AND
+                already_sent = TRUE
+        )
 ),
 
 last_course as (
@@ -73,13 +64,12 @@ QUALIFY
 -- join it all together.
 select
     pl.user_id,
-    pl.learning_time_seconds,
     runs.courserun_key,
     runs.course_key,
     runs.courserun_title
 from
     prepared_learners pl
-left join
+inner join
     last_course lc
 on
     pl.user_id = lc.user_id
