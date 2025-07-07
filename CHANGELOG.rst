@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.0.0]- 2025-07-07
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* feat: upgrade python version to 3.11
+
 [2.6.0]- 2024-11-06
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Deprecated edx-sphinx-theme and replaced it with sphinx-book-theme

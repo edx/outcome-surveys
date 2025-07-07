@@ -319,7 +319,6 @@ class Command(BaseCommand):
             self.delete_survey_responses()
         except SurveyMonkeyDailyRateLimitConsumed:
             LOGGER.info("Consumed daily api call limit. Can not make more calls.")
-            return
 
     def start_command(self, options):
         """
