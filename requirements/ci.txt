@@ -22,7 +22,7 @@ packaging==25.0
     #   tox
 platformdirs==3.11.0
     # via
-    #   -c requirements/constraints.txt
+    #   -c /Users/muhammad.ammar/edx/src/outcome-surveys/requirements/constraints.txt
     #   tox
     #   virtualenv
 pluggy==1.6.0
