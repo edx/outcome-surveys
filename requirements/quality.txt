@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.9.0
+asgiref==3.9.1
     # via
     #   -r requirements/test.txt
     #   django
@@ -12,23 +12,23 @@ asn1crypto==1.5.1
     # via
     #   -r requirements/test.txt
     #   snowflake-connector-python
-astroid==3.3.10
+astroid==3.3.11
     # via
     #   pylint
     #   pylint-celery
 backports-tarfile==1.2.0
     # via jaraco-context
-boto3==1.39.3
+boto3==1.39.10
     # via
     #   -r requirements/test.txt
     #   snowflake-connector-python
-botocore==1.39.3
+botocore==1.39.10
     # via
     #   -r requirements/test.txt
     #   boto3
     #   s3transfer
     #   snowflake-connector-python
-certifi==2025.6.15
+certifi==2025.7.14
     # via
     #   -r requirements/test.txt
     #   requests
@@ -153,7 +153,7 @@ more-itertools==10.7.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-nh3==0.2.21
+nh3==0.3.0
     # via readme-renderer
 packaging==25.0
     # via
@@ -264,7 +264,7 @@ rfc3986==2.0.0
     # via twine
 rich==14.0.0
     # via twine
-s3transfer==0.13.0
+s3transfer==0.13.1
     # via
     #   -r requirements/test.txt
     #   boto3
