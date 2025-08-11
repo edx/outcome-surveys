@@ -1,7 +1,10 @@
 """
 Database models for outcome_surveys.
 """
+import logging
+
 from django.db import models
+from django.db.utils import OperationalError
 from jsonfield import JSONField
 # from django.db import models
 from model_utils.models import TimeStampedModel
@@ -12,6 +15,8 @@ from outcome_surveys.constants import (
     SEGMENT_LEARNER_ACHIEVED_LEARNING_TIME_EVENT_TYPE,
     SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
 )
+
+LOGGER = logging.getLogger(__name__)
 
 
 class LearnerCourseEvent(TimeStampedModel):
@@ -72,7 +77,17 @@ class MultiChoiceResponse(TimeStampedModel):
         """
         answers = []
         for user_choice in user_choices:
-            answer = MultiChoiceResponse.objects.filter(answer=user_choice).first()
+            try:
+                answer = MultiChoiceResponse.objects.filter(answer=user_choice).first()
+            except OperationalError:
+                LOGGER.info(
+                    "[OperationalError] Parent: [%s], Related Field: [%s], User Choice: [%s], User Choices: [%s]",
+                    parent.__class__.__name__,
+                    related_field_name,
+                    user_choice,
+                    user_choices
+                )
+                raise
             if answer is None:
                 answer = MultiChoiceResponse.objects.create(answer=user_choice)
             answers.append(answer)

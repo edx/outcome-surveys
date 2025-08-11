@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.0.3]- 2025-08-11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* temp: add logs to debug issue with `OperationalError` in `MultiChoiceResponse.save_answers`
+
 [3.0.2]- 2025-07-29
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * fix: use latest version of setuptools
