@@ -1,0 +1,32 @@
+outcome_surveys/management/commands/send_learning_time_achieved_segment_events.py
+  s_61308397e9734e::t_ddaa3b497200bd 8-14,16
+  s_61308397e9734e::t_425197d345e588 93-109
+  s_61308397e9734e::t_76b77734d7853d 134-143
+  s_61308397e9734e::t_8ea134c0c95614 144-156
+outcome_surveys/management/commands/tests/test_send_learning_time_achieved_segment_events.py
+  s_61308397e9734e::t_72075f29278c4a 128-190,192-297
+  s_61308397e9734e::t_47c885ff02467c 9-17,19,27
+  s_61308397e9734e::t_fc94bad1137cfe 298-310
+  s_61308397e9734e::t_25f7ed8ba1dfd3 311
+  s_61308397e9734e::t_a6ccc6e0aacad7 191
+CHANGELOG.rst
+  s_61308397e9734e::t_4d77d51301e750 17-20
+outcome_surveys/__init__.py
+  s_61308397e9734e::t_4d77d51301e750 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.8",
+  "base_commit_sha": "69fde0024a669f8082edd25d1955ead2a7588a94",
+  "prompts": {},
+  "sessions": {
+    "s_61308397e9734e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "066d1d94-db7a-49fd-bf50-0d3e1c34185f",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    }
+  }
+}
