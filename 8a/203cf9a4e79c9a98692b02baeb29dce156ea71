@@ -1,0 +1,46 @@
+outcome_surveys/management/commands/send_learning_time_achieved_segment_events.py
+  s_61308397e9734e::t_ddaa3b497200bd 8
+  s_d2593cd5bdb0d3::t_20443fc670e0d6 9
+  s_61308397e9734e::t_8ea134c0c95614 129-148
+  s_61308397e9734e::t_425197d345e588 88-102
+outcome_surveys/__init__.py
+  s_61308397e9734e::t_4d77d51301e750 5
+outcome_surveys/management/commands/tests/test_send_learning_time_achieved_segment_events.py
+  s_61308397e9734e::t_a6ccc6e0aacad7 190
+  s_61308397e9734e::t_25f7ed8ba1dfd3 309
+  s_d2593cd5bdb0d3::t_20443fc670e0d6 11,16
+  s_d2593cd5bdb0d3::t_69617e2fd53a43 126
+  s_61308397e9734e::t_fc94bad1137cfe 296-308
+  s_61308397e9734e::t_47c885ff02467c 9-10,12,14,23
+  s_d2593cd5bdb0d3::t_5046923f95cd69 148,157
+  s_d2593cd5bdb0d3::t_18ef85b7070e0c 149
+  s_d2593cd5bdb0d3::t_a7ed6c6c3987e3 158
+  s_61308397e9734e::t_72075f29278c4a 124-125,127-147,150-156,159-178,180-189,191-295
+  s_d2593cd5bdb0d3::t_95f1c30eb7acca 179
+CHANGELOG.rst
+  s_61308397e9734e::t_4d77d51301e750 17-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "8a203cf9a4e79c9a98692b02baeb29dce156ea71",
+  "prompts": {},
+  "sessions": {
+    "s_61308397e9734e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "066d1d94-db7a-49fd-bf50-0d3e1c34185f",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_d2593cd5bdb0d3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dba3d047-3033-4c76-975e-9022f6d6f9f3",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": null
+    }
+  }
+}
