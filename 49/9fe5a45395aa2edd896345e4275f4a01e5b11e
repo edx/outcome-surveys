@@ -1,0 +1,43 @@
+outcome_surveys/__init__.py
+  s_61308397e9734e::t_4d77d51301e750 5
+outcome_surveys/management/commands/send_learning_time_achieved_segment_events.py
+  s_61308397e9734e::t_425197d345e588 93-109
+  s_61308397e9734e::t_76b77734d7853d 134-143
+  s_61308397e9734e::t_8ea134c0c95614 144-156
+  s_61308397e9734e::t_ddaa3b497200bd 8-14,16
+outcome_surveys/management/commands/tests/test_send_learning_time_achieved_segment_events.py
+  s_61308397e9734e::t_47c885ff02467c 9-16,18,20,28
+  s_d2593cd5bdb0d3::t_8fc0c0bd58642b 17
+  s_61308397e9734e::t_72075f29278c4a 129-152,154-160,162-181,183-192,194-298
+  s_61308397e9734e::t_a6ccc6e0aacad7 193
+  s_61308397e9734e::t_fc94bad1137cfe 299-311
+  s_d2593cd5bdb0d3::t_95f1c30eb7acca 182
+  s_61308397e9734e::t_25f7ed8ba1dfd3 312
+  s_d2593cd5bdb0d3::t_82d2859c8304b0 153,161
+CHANGELOG.rst
+  s_61308397e9734e::t_4d77d51301e750 17-20
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.9",
+  "base_commit_sha": "499fe5a45395aa2edd896345e4275f4a01e5b11e",
+  "prompts": {},
+  "sessions": {
+    "s_61308397e9734e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "066d1d94-db7a-49fd-bf50-0d3e1c34185f",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_d2593cd5bdb0d3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "dba3d047-3033-4c76-975e-9022f6d6f9f3",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": null
+    }
+  }
+}
