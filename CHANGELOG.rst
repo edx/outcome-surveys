@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.0.4]- 2026-06-19
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* feat: migrated the snowflake connectivity from username to private key
+
 [3.0.3]- 2025-08-11
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * temp: add logs to debug issue with `OperationalError` in `MultiChoiceResponse.save_answers`

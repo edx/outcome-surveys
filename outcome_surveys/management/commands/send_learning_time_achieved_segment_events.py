@@ -5,7 +5,10 @@ Send segment events for passed learners so that Braze can send 90 day follow up 
 import logging
 
 import snowflake.connector
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, load_pem_private_key
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from snowflake.connector import DictCursor
@@ -82,6 +85,23 @@ NUM_ROWS_TO_FETCH = 5000
 BULK_CREATE_BATCH_SIZE = 500
 
 
+def _build_private_key_bytes(private_key_pem, passphrase):
+    """
+    Decode a PEM private key into the DER bytes the Snowflake connector expects.
+    """
+    passphrase_bytes = passphrase.encode('utf-8') if passphrase else None
+    p_key = load_pem_private_key(
+        private_key_pem.encode('utf-8'),
+        password=passphrase_bytes,
+        backend=default_backend(),
+    )
+    return p_key.private_bytes(
+        encoding=Encoding.DER,
+        format=PrivateFormat.PKCS8,
+        encryption_algorithm=NoEncryption(),
+    )
+
+
 class Command(BaseCommand):
     """
     Example usage:
@@ -106,12 +126,29 @@ class Command(BaseCommand):
         """
         Get query results from Snowflake and yield each row.
         """
-        connection = snowflake.connector.connect(
-            user=settings.SNOWFLAKE_SERVICE_USER,
-            password=settings.SNOWFLAKE_SERVICE_USER_PASSWORD,
-            account='edx.us-east-1',
-            database='prod'
-        )
+        user = getattr(settings, 'SNOWFLAKE_SERVICE_USER', None)
+        private_key_pem = getattr(settings, 'SNOWFLAKE_SERVICE_PRIVKEY', None)
+        passphrase = getattr(settings, 'SNOWFLAKE_SERVICE_PASSPHRASE', None)
+
+        if not user or not private_key_pem:
+            raise ImproperlyConfigured(
+                'Snowflake credentials are not configured: SNOWFLAKE_SERVICE_USER and '
+                'SNOWFLAKE_SERVICE_PRIVKEY must be set in Django settings.'
+            )
+
+        log.info('%s Connecting to Snowflake as user [%s] (passphrase set: %s)', log_prefix, user, bool(passphrase))
+        try:
+            connection = snowflake.connector.connect(
+                user=user,
+                private_key=_build_private_key_bytes(private_key_pem, passphrase),
+                account='edx.us-east-1',
+                database='prod'
+            )
+        except Exception:
+            log.exception('%s Failed to connect to Snowflake as user [%s]', log_prefix, user)
+            raise
+        log.info('%s Snowflake connection established', log_prefix)
+
         cursor = connection.cursor(DictCursor)
         try:
             log.info('%s Executing query', log_prefix)
