@@ -1,0 +1,28 @@
+outcome_surveys/__init__.py
+  s_06356162507125::t_25628ec8b1eccf 5
+outcome_surveys/signals.py
+  s_06356162507125::t_2c735ce30dc87b 119
+  s_06356162507125::t_70d537374040ff 16-25,62-118,120
+CHANGELOG.rst
+  s_06356162507125::t_060bfdf87d5eb6 17-22
+tests/test_signals.py
+  s_06356162507125::t_70d537374040ff 8,12,16-19,61-123
+outcome_surveys/apps.py
+  s_06356162507125::t_70d537374040ff 26-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "8a5b69b84b377a52dc24da5eca6444a9c915b215",
+  "prompts": {},
+  "sessions": {
+    "s_06356162507125": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "11500f64-7a59-4812-80a8-0b150170865d",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    }
+  }
+}
