@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.0.6]- 2026-08-11
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* feat: added Django 5.2 tox and CI compatibility checks
+
 [3.0.5]- 2026-08-07
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * feat: schedule follow up survey event on `COURSE_CERT_AWARDED` signal, to cover
