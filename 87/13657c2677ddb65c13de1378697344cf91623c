@@ -1,0 +1,38 @@
+tests/test_send_follow_up_segment_events_for_passed_learners.py
+  s_5e46450f40d509::t_10e31b436663f8 106
+  s_5e46450f40d509::t_4238c9cea4b8a7 6
+  s_5e46450f40d509::t_090fcd18bc9f89 1-5,7-105,107-127
+CHANGELOG.rst
+  s_5e46450f40d509::t_8e86b0c07b99f9 19-28
+outcome_surveys/management/commands/send_follow_up_segment_events_for_passed_learners.py
+  s_5e46450f40d509::t_70f941a78015cd 60-69,72-88,91-100,108,119-120
+  s_5e46450f40d509::t_ec3ae2a6a9f7d3 89-90
+  s_5e46450f40d509::t_bbb22cc64d63f3 23
+  s_5e46450f40d509::t_f0e5f8fe61316d 24
+outcome_surveys/signals.py
+  s_5e46450f40d509::t_8d5316060f0738 134-140
+  s_5e46450f40d509::t_6983d1c04f5b84 113-114
+  s_5e46450f40d509::t_d1bb94e3baf55c 29-50
+  s_5e46450f40d509::t_8aa9a09ba63ddc 66,74-83
+  s_5e46450f40d509::t_8cdc1502e68835 84
+tests/test_signals.py
+  s_5e46450f40d509::t_9d815e1a30d402 66,68-69
+  s_5e46450f40d509::t_0cf7c9a65b65b3 156,158-160,162
+  s_5e46450f40d509::t_134636b9c508ce 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "8713657c2677ddb65c13de1378697344cf91623c",
+  "prompts": {},
+  "sessions": {
+    "s_5e46450f40d509": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b95af64b-a9b7-4311-b330-58a0d51fb951",
+        "model": "claude-opus-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    }
+  }
+}
