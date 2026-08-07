@@ -1,0 +1,22 @@
+tests/test_signals.py
+  s_1acb730427f87b::t_359e98335e9cb3 128-162
+  s_1acb730427f87b::t_134f81b325fc09 8
+outcome_surveys/management/commands/tests/test_send_follow_up_segment_events_for_passed_learners.py
+  s_1acb730427f87b::t_c86e96ae098055 130-216
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "773c32227d3e00af587daedaf687eaf5e948ef3e",
+  "prompts": {},
+  "sessions": {
+    "s_1acb730427f87b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a8d4c93-c7b1-4ea2-a02c-4de5fbca2b3e",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    }
+  }
+}
