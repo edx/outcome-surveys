@@ -1,0 +1,21 @@
+outcome_surveys/management/commands/send_follow_up_segment_events_for_passed_learners.py
+  s_a9040aa3fed19a::t_2875162a4fb3c7 136,139-140
+tests/test_signals.py
+  s_a9040aa3fed19a::t_64b8f4efbdca1d 107,125,140,169,192,243,414
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "0fd7bdf558251a6b3eab0945801fe3d476d677fa",
+  "prompts": {},
+  "sessions": {
+    "s_a9040aa3fed19a": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "b772f0c4-c751-4250-881c-bd17bcc4b72f",
+        "model": "unknown"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    }
+  }
+}
