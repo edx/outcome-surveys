@@ -1,0 +1,34 @@
+tests/test_signals.py
+  s_ac16e5ccf3a711::t_a5c20812d4e4cd 340,342,351-355,362-387,389
+  s_ac16e5ccf3a711::t_52d68bf8c1f77c 277-339,341,343-350,356-361,388,390
+  s_ac16e5ccf3a711::t_d627971ef96e49 24-88
+outcome_surveys/utils.py
+  s_ac16e5ccf3a711::t_462df6ab422d90 1-34
+outcome_surveys/management/commands/send_learning_time_achieved_segment_events.py
+  s_ac16e5ccf3a711::t_b257b24570b1b3 18,20
+outcome_surveys/management/commands/send_follow_up_segment_events_for_passed_learners.py
+  s_ac16e5ccf3a711::t_6c08e243396e94 15-17
+outcome_surveys/signals.py
+  s_ac16e5ccf3a711::t_1080fc7746852e 162-165
+  s_ac16e5ccf3a711::t_254068ee8c89ca 106-113
+  s_ac16e5ccf3a711::t_7aa36e51c9b363 15,17-21,33,35-38,47-79
+  s_ac16e5ccf3a711::t_c8309d35df7442 80-81
+CHANGELOG.rst
+  s_ac16e5ccf3a711::t_16762dd41b6976 23-29
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "283b5e01addf271affd86c7a3835ac0ba44b6f86",
+  "prompts": {},
+  "sessions": {
+    "s_ac16e5ccf3a711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "101a1767-d1f2-47d6-83af-1a5855122e12",
+        "model": "claude-opus-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    }
+  }
+}
