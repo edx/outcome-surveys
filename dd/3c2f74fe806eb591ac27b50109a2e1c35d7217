@@ -1,0 +1,141 @@
+outcome_surveys/apps.py
+  s_06356162507125::t_70d537374040ff 26-35
+outcome_surveys/management/commands/tests/test_send_learning_time_achieved_segment_events.py
+  s_ac16e5ccf3a711::t_d15a23fb621ff3 311-340
+  s_ac16e5ccf3a711::t_22994b3563c237 14
+outcome_surveys/management/commands/tests/test_send_follow_up_segment_events_for_passed_learners.py
+  s_ac16e5ccf3a711::t_ead57edb52fe7b 26
+  s_ac16e5ccf3a711::t_d2eca3350eed41 190-205,221-223,225-233
+  s_ac16e5ccf3a711::t_91db9adbc15cd1 11,21
+  s_1acb730427f87b::t_c86e96ae098055 123-126,128-189
+  s_73995556d25b55::t_93b0dc59ccdf1a 22
+  s_ac16e5ccf3a711::t_8f3195b64329ee 206-220
+  s_ac16e5ccf3a711::t_e8ef755882c246 127
+  s_ac16e5ccf3a711::t_870bac96f9804f 224
+tests/test_signals.py
+  s_8404a4a38a78cd::t_6a4bf6e983ac39 103-106,108-123
+  s_06356162507125::t_cba6463375f481 210-211,312
+  s_ac16e5ccf3a711::t_d627971ef96e49 24-29,31-64
+  s_ac16e5ccf3a711::t_0af877c2c57da2 135-139
+  s_06356162507125::t_70d537374040ff 12,14,16-18,20-23,101,124-133,140-152,154-158,189-193,195-209,313,316
+  s_ac16e5ccf3a711::t_a5c20812d4e4cd 275,283-284,291-308
+  s_1acb730427f87b::t_359e98335e9cb3 159-188
+  s_a9040aa3fed19a::t_64b8f4efbdca1d 81,96,107,134,153,194,317
+  s_5e46450f40d509::t_0cf7c9a65b65b3 212-213
+  s_ac16e5ccf3a711::t_e1b21cbc260345 30
+  s_5e46450f40d509::t_9d815e1a30d402 102
+  s_8404a4a38a78cd::t_6c1773b47818a0 15
+  s_a9040aa3fed19a::t_6661fa606db928 318,328
+  s_ac16e5ccf3a711::t_328ba3dafefc8e 233,249,263,289,310
+  s_8404a4a38a78cd::t_1795a54049720e 214-227,329,333
+  s_ac16e5ccf3a711::t_6697dc2e6e2aa2 69
+  s_ac16e5ccf3a711::t_52d68bf8c1f77c 228-232,234-248,250-262,264-274,276-282,285-288,290,309,311,314-315,319,321-327,330-332
+  s_ac16e5ccf3a711::t_3f37f77a819874 320
+  s_1acb730427f87b::t_134f81b325fc09 8
+outcome_surveys/signals.py
+  s_ac16e5ccf3a711::t_1080fc7746852e 112-114
+  s_06356162507125::t_70d537374040ff 83-93,95-111,115-118,120
+  s_5e46450f40d509::t_d1bb94e3baf55c 37-38,40-41,43,56-57
+  s_ac16e5ccf3a711::t_2e0b942d285ddc 65
+  s_ac16e5ccf3a711::t_254068ee8c89ca 67-68
+  s_ac16e5ccf3a711::t_0ffb88924bbf28 66
+  s_06356162507125::t_37f1cbdc9f9627 124
+  s_06356162507125::t_2c735ce30dc87b 119
+  s_ac16e5ccf3a711::t_7aa36e51c9b363 15-21,42,44-47,49-55
+  s_8404a4a38a78cd::t_e074178dd91f34 69-74
+  s_5e46450f40d509::t_6983d1c04f5b84 94
+  s_06356162507125::t_953abfb1d44f4d 121-123
+  s_ac16e5ccf3a711::t_6cac05c9a04383 26-36,39,48
+outcome_surveys/management/commands/send_follow_up_segment_events_for_passed_learners.py
+  s_ac16e5ccf3a711::t_ecb71e265df31a 43-48,72
+  s_5e46450f40d509::t_f0e5f8fe61316d 22
+  s_ac16e5ccf3a711::t_3597837ef8afaf 77-78,83-87,123-127
+  s_5e46450f40d509::t_19ec6190a59c1a 100-102
+  s_ac16e5ccf3a711::t_8d3c57d20888d9 7
+  s_5e46450f40d509::t_70f941a78015cd 59-61,96-99,118
+  s_5e46450f40d509::t_ec3ae2a6a9f7d3 94-95
+  s_5e46450f40d509::t_bbb22cc64d63f3 21
+  s_a9040aa3fed19a::t_c8568e1bac64ba 111
+  s_ac16e5ccf3a711::t_6c08e243396e94 15-17
+  s_73995556d25b55::t_99c341c0c31434 116,129-135
+  s_ac16e5ccf3a711::t_6a37e0bfedddfc 62-71,73-76,79-82,88-93,103
+  s_ac16e5ccf3a711::t_0396eabffb743b 128
+outcome_surveys/utils.py
+  s_a9040aa3fed19a::t_93c7306c56a7c8 12-13
+  s_ac16e5ccf3a711::t_462df6ab422d90 1-11,14-26
+CHANGELOG.rst
+  s_ac16e5ccf3a711::t_16762dd41b6976 23-29
+  s_5e46450f40d509::t_8e86b0c07b99f9 22,30-37
+  s_1acb730427f87b::t_bbb4e7d2add0e7 17,19-21
+  s_06356162507125::t_060bfdf87d5eb6 18,38
+outcome_surveys/management/commands/send_learning_time_achieved_segment_events.py
+  s_ac16e5ccf3a711::t_59dc3b75b1402a 173-178
+  s_ac16e5ccf3a711::t_b257b24570b1b3 18,20
+  s_ac16e5ccf3a711::t_47970db6e5d823 12
+outcome_surveys/__init__.py
+  s_1acb730427f87b::t_e716bff8d41f4c 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "dd3c2f74fe806eb591ac27b50109a2e1c35d7217",
+  "prompts": {},
+  "sessions": {
+    "s_06356162507125": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "11500f64-7a59-4812-80a8-0b150170865d",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_1acb730427f87b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5a8d4c93-c7b1-4ea2-a02c-4de5fbca2b3e",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_5e46450f40d509": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b95af64b-a9b7-4311-b330-58a0d51fb951",
+        "model": "claude-opus-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_73995556d25b55": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "08fa5fbf-a470-46e1-80ff-29624c421987",
+        "model": "claude-opus-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_8404a4a38a78cd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9d9de0a2-f9c0-4745-9252-ae18508f8704",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_a9040aa3fed19a": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "b772f0c4-c751-4250-881c-bd17bcc4b72f",
+        "model": "gpt-5.3-codex"
+      },
+      "human_author": null
+    },
+    "s_ac16e5ccf3a711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "101a1767-d1f2-47d6-83af-1a5855122e12",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": null
+    }
+  }
+}
