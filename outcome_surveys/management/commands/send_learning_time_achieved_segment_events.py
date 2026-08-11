@@ -9,17 +9,15 @@ from cryptography.hazmat.backends import default_backend
 from cryptography.hazmat.primitives.serialization import Encoding, NoEncryption, PrivateFormat, load_pem_private_key
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand
+from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 from snowflake.connector import DictCursor
 
 from outcome_surveys.constants import SEGMENT_LEARNER_ACHIEVED_LEARNING_TIME_EVENT_TYPE
 from outcome_surveys.models import LearnerCourseEvent
+from outcome_surveys.utils import optional_lms_import
 
-try:
-    from common.djangoapps.track.segment import track
-except ImportError:
-    track = None
+track = optional_lms_import('common.djangoapps.track.segment', 'track')
 
 log = logging.getLogger(__name__)
 
@@ -172,6 +170,12 @@ class Command(BaseCommand):
         Command's entry point.
         """
         fire_event = not options['dry_run']
+        if fire_event and track is None:
+            raise CommandError(
+                "[OUTCOME SURVEYS] Segment 'track' is unavailable in this environment. "
+                "Run with --dry-run, or check that common.djangoapps.track.segment is "
+                "importable here."
+            )
 
         log_prefix = '[SEND_LEARNING_TIME_ACHIEVED_SEGMENT_EVENTS]'
         if not fire_event:

@@ -4,13 +4,7 @@ Send segment events for passed learners so that Braze can send 90 day follow up 
 
 import logging
 
-try:
-    from common.djangoapps.track.segment import track
-except ImportError:
-    track = None
-
-from django.core.management.base import BaseCommand
-from django.core.paginator import Paginator
+from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from outcome_surveys.constants import (
@@ -18,8 +12,13 @@ from outcome_surveys.constants import (
     SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
 )
 from outcome_surveys.models import LearnerCourseEvent
+from outcome_surveys.utils import optional_lms_import
+
+track = optional_lms_import('common.djangoapps.track.segment', 'track')
 
 log = logging.getLogger(__name__)
+
+BATCH_SIZE = 500
 
 
 class Command(BaseCommand):
@@ -31,9 +30,6 @@ class Command(BaseCommand):
     help = 'Send follow up segment events for passed learners.'
 
     def add_arguments(self, parser):
-        """
-        Entry point to add arguments.
-        """
         parser.add_argument(
             '--dry-run',
             action='store_true',
@@ -43,10 +39,13 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        """
-        Command's entry point.
-        """
         should_fire_event = not options['dry_run']
+        if should_fire_event and track is None:
+            raise CommandError(
+                "[OUTCOME SURVEYS] Segment 'track' is unavailable in this environment. "
+                "Run with --dry-run, or check that common.djangoapps.track.segment is "
+                "importable here."
+            )
 
         log_prefix = '[SEND_FOLLOW_UP_SEGMENT_EVENTS_FOR_PASSED_LEARNERS]'
         if not should_fire_event:
@@ -56,36 +55,81 @@ class Command(BaseCommand):
         log.info(f'{log_prefix} Command started.')
 
         today = timezone.now().date()
-        follow_up_events = LearnerCourseEvent.objects.filter(
-            follow_up_date=today,
-            event_type=SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
-            already_sent=False,
-        )
 
-        paginator = Paginator(follow_up_events, 500)
-        for page_number in paginator.page_range:
-            page = paginator.page(page_number)
+        # Stream with keyset pagination to avoid loading all IDs into memory.
+        # Dedupe by (user_id, course_id) to prevent duplicate segment events.
+        handled_learner_courses = set()
+        last_id = 0
 
-            triggered_event_record_ids = []
-            for follow_up_event in page:
+        while True:
+            batch_ids = list(
+                LearnerCourseEvent.objects.filter(
+                    follow_up_date=today,
+                    event_type=SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_EVENT_TYPE,
+                    already_sent=False,
+                    id__gt=last_id,
+                ).order_by('id').values_list('id', flat=True)[:BATCH_SIZE]
+            )
+
+            if not batch_ids:
+                break
+
+            processed_event_record_ids = []
+
+            # Re-check already_sent to guard against concurrent sends.
+            for follow_up_event in LearnerCourseEvent.objects.filter(
+                id__in=batch_ids, already_sent=False,
+            ).order_by('id'):
+                # Advance past every row the query returns, duplicate or not: keyset
+                # pagination only makes progress if `id__gt=last_id` moves forward on every
+                # iteration, so a batch that ends in duplicates must not leave it behind -
+                # otherwise the next iteration re-fetches the same rows forever.
+                last_id = follow_up_event.id
+                learner_course = (follow_up_event.user_id, follow_up_event.course_id)
+
+                if learner_course in handled_learner_courses:
+                    # Mark duplicate as sent, but don't fire a second event.
+                    if should_fire_event:
+                        processed_event_record_ids.append(follow_up_event.id)
+                    log.info(
+                        "%s Skipping duplicate follow up event. Id: [%s], User: [%s], Course: [%s]",
+                        log_prefix,
+                        follow_up_event.id,
+                        follow_up_event.user_id,
+                        follow_up_event.course_id,
+                    )
+                    continue
+
+                handled_learner_courses.add(learner_course)
+
                 if should_fire_event:
                     track(
                         follow_up_event.user_id,
                         SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
                         follow_up_event.data
                     )
-                    triggered_event_record_ids.append(follow_up_event.id)
+                    processed_event_record_ids.append(follow_up_event.id)
 
                 follow_up_event_ids.append(follow_up_event.id)
 
                 log.info(
-                    "%s Segment event fired for passed learner. Event: [%s], Data: [%s]",
+                    "%s %s for passed learner. Event: [%s], Data: [%s]",
                     log_prefix,
+                    "Segment event fired" if should_fire_event else "Segment event would be fired",
                     SEGMENT_LEARNER_PASSED_COURSE_FIRST_TIME_FOLLOW_UP_EVENT_TYPE,
                     follow_up_event.data
                 )
 
-            if triggered_event_record_ids:
-                LearnerCourseEvent.objects.filter(id__in=triggered_event_record_ids).update(already_sent=True)
+            # Flush per batch rather than once at the end: if the command is interrupted
+            # partway through a long run, only the in-flight batch is at risk of being
+            # resent on retry, not every event fired since the run started.
+            if processed_event_record_ids:
+                LearnerCourseEvent.objects.filter(id__in=processed_event_record_ids).update(already_sent=True)
 
-        log.info("%s Command completed. Segment event triggered for ids: [%s]", log_prefix, follow_up_event_ids)
+        log.info(
+            "%s Command completed. %s for %d events. Sample ids: [%s]",
+            log_prefix,
+            "Segment event triggered" if should_fire_event else "Segment event would be triggered",
+            len(follow_up_event_ids),
+            follow_up_event_ids[:10]
+        )
