@@ -1,0 +1,49 @@
+tests/test_signals.py
+  s_ac16e5ccf3a711::t_ccf4439a81aa51 287
+  s_ac16e5ccf3a711::t_52d68bf8c1f77c 282-286,292-295,297-311,313-318,323-334,336-346,348,350-357,363-366,368,400,403
+  s_ac16e5ccf3a711::t_fd9dc592e1da7f 319
+  s_ac16e5ccf3a711::t_d627971ef96e49 24-88
+  s_ac16e5ccf3a711::t_0af877c2c57da2 170-174
+  s_ac16e5ccf3a711::t_328ba3dafefc8e 288-291,296,312,320-322,335,367,373-380,401-402
+  s_ac16e5ccf3a711::t_a5c20812d4e4cd 347,349,358-362,369-372,381-399
+outcome_surveys/management/commands/send_learning_time_achieved_segment_events.py
+  s_ac16e5ccf3a711::t_b257b24570b1b3 18,20
+outcome_surveys/signals.py
+  s_ac16e5ccf3a711::t_254068ee8c89ca 107-108
+  s_ac16e5ccf3a711::t_e98e9b77ac2e6a 56-58,60-66
+  s_5e46450f40d509::t_d1bb94e3baf55c 46,48
+  s_ac16e5ccf3a711::t_7aa36e51c9b363 15,17-21,50,52-55,68-71,78,80-86
+  s_ac16e5ccf3a711::t_1080fc7746852e 163-166
+  s_ac16e5ccf3a711::t_6cac05c9a04383 26-36,41-45,47,59,67,72-77,79
+  s_ac16e5ccf3a711::t_6ccd4f8144aae0 104-106
+outcome_surveys/management/commands/send_follow_up_segment_events_for_passed_learners.py
+  s_ac16e5ccf3a711::t_6c08e243396e94 15-17
+CHANGELOG.rst
+  s_ac16e5ccf3a711::t_16762dd41b6976 23-29
+outcome_surveys/utils.py
+  s_ac16e5ccf3a711::t_462df6ab422d90 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "af588b5b0376b9b48e82ab138d210e8ca7883e68",
+  "prompts": {},
+  "sessions": {
+    "s_5e46450f40d509": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b95af64b-a9b7-4311-b330-58a0d51fb951",
+        "model": "claude-opus-5"
+      },
+      "human_author": "rgopalrao-sonata-png <rgopalrao-sonata@2u.com>"
+    },
+    "s_ac16e5ccf3a711": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "101a1767-d1f2-47d6-83af-1a5855122e12",
+        "model": "claude-sonnet-5"
+      },
+      "human_author": null
+    }
+  }
+}
