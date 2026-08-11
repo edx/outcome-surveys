@@ -23,6 +23,16 @@ class OutcomeSurveysConfig(AppConfig):
                                                    '.SCHEDULE_FOLLOW_UP_SEGMENT_EVENT_FOR_COURSE_PASSED_FIRST_TIME',
                         PluginSignals.RECEIVER_FUNC_NAME: 'schedule_course_passed_first_time_follow_up_segment_event',
                     },
+                    {
+                        # Certificates issued via the certificate allowlist (used by externally
+                        # graded courses, e.g. the CS50 family) never emit
+                        # SCHEDULE_FOLLOW_UP_SEGMENT_EVENT_FOR_COURSE_PASSED_FIRST_TIME because no
+                        # passing grade is ever computed for those learners. COURSE_CERT_AWARDED
+                        # fires for any passing certificate regardless of how it was generated, so
+                        # it covers the gap.
+                        PluginSignals.SIGNAL_PATH: 'openedx.core.djangoapps.signals.signals.COURSE_CERT_AWARDED',
+                        PluginSignals.RECEIVER_FUNC_NAME: 'schedule_course_certificate_awarded_follow_up_segment_event',
+                    },
                 ],
             },
         },

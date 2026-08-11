@@ -11,6 +11,7 @@ from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.serialization import BestAvailableEncryption, Encoding, NoEncryption, PrivateFormat
 from django.core.exceptions import ImproperlyConfigured
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.test import override_settings
 from django.utils import timezone
 from snowflake.connector import DictCursor
@@ -307,3 +308,33 @@ class TestFetchDataFromSnowflake(TestCase):
         mock_log.exception.assert_called_once()
         call_args = mock_log.exception.call_args[0]
         self.assertIn('svc-user', call_args[2])
+
+
+@pytest.mark.django_db
+class TestSendLearningTimeSegmentEventsTrackAvailability(TestCase):
+    """
+    Tests for the `track` availability guard in `send_learning_time_achieved_segment_events`.
+    """
+
+    def setUp(self):
+        super().setUp()
+        self.command = send_learning_time_achieved_segment_events.Command()
+
+    @patch(f'{CMD_MODULE}.track', None)
+    def test_raises_when_track_unavailable_and_not_dry_run(self):
+        """
+        This app only ever runs installed into edx-platform, where `common.djangoapps.
+        track.segment.track` is always importable - so `track` being None here means a
+        genuine deployment problem, and must fail loudly before ever connecting to Snowflake.
+        """
+        with self.assertRaises(CommandError):
+            call_command(self.command)
+
+    @patch(f'{CMD_MODULE}.track', None)
+    @mock.patch(f'{CMD_MODULE}.Command.fetch_data_from_snowflake')
+    def test_dry_run_does_not_require_track(self, mock_fetch_data_from_snowflake):
+        """
+        A dry run never calls `track`, so it must not fail even when `track` is unavailable.
+        """
+        mock_fetch_data_from_snowflake.return_value = (row for row in ())
+        call_command(self.command, '--dry-run')

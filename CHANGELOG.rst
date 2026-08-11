@@ -14,6 +14,28 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.0.5]- 2026-08-07
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* feat: schedule follow up survey event on `COURSE_CERT_AWARDED` signal, to cover
+  certificates issued via the certificate allowlist (e.g. externally graded courses),
+  which never trigger the existing `passed_first_time` follow up event.
+* fix: guard the `passed_first_time` handler against scheduling a duplicate follow up
+  event, matching the guard already used by the `COURSE_CERT_AWARDED` handler. Both
+  handlers now write via `get_or_create` on `(user_id, course_id, event_type)`, so no
+  work happens between the duplicate check and the insert.
+* fix: narrow the optional LMS imports (`CourseEnrollment`, `CourseOverview`, `track`) so
+  only the absence of the LMS package itself is tolerated. A `ModuleNotFoundError` raised
+  from inside an importable LMS module is a real deployment problem and now propagates
+  instead of silently leaving the handler with incomplete event metadata.
+* fix: dedupe by learner/course when sending follow up segment events, so duplicate
+  `LearnerCourseEvent` rows (including any already present) can no longer send a
+  learner a second follow up email. Duplicate rows are marked as sent rather than
+  re-fired. This replaces an earlier approach that added a unique constraint on
+  `(user_id, course_id, event_type)`; the table lives in the edxapp database and
+  pre-existing duplicate rows would have blocked that migration.
+* fix: snapshot pending event ids before sending, so marking rows `already_sent`
+  no longer shrinks the queryset mid-iteration and skips records past the first batch.
+
 [3.0.4]- 2026-06-19
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * feat: migrated the snowflake connectivity from username to private key
