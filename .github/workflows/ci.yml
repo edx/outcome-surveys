@@ -16,7 +16,7 @@
         matrix:
           os: [ubuntu-latest]
           python-version: ['3.11']
-          toxenv: [quality, pii_check, django42]
+          toxenv: [quality, pii_check, py311-django42, py311-django52]
 
       steps:
       - uses: actions/checkout@v2
